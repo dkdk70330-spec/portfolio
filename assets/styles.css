@@ -231,8 +231,38 @@ footer a:hover { color: var(--accent); }
   .creator-avatar { width: 74px; }
   .hero-stats { gap: .55rem; }
   .hero-stats span { font-size: .62rem; }
-  .character-grid { grid-template-columns: 1fr; }
-  .card-image-wrap { aspect-ratio: 4 / 3.7; }
+
+  /* 아카이브는 모바일에서도 한눈에 훑을 수 있는 2열 소형 그리드로 유지 */
+  .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+  .character-grid .card-button { border-radius: 16px; }
+  .character-grid .card-image-wrap { aspect-ratio: 4 / 5; }
+  .character-grid .card-platforms { right: .45rem; bottom: .45rem; gap: .2rem; }
+  .character-grid .platform-dot { width: 23px; height: 23px; font-size: .6rem; }
+  .character-grid .card-body { padding: .72rem; }
+  .character-grid .card-tags { gap: .25rem; margin-bottom: .45rem; }
+  .character-grid .card-tags span { padding: .12rem .35rem; font-size: .62rem; }
+  .character-grid .card-tags span:nth-child(n + 2) { display: none; }
+  .character-grid .card-body h3 {
+    overflow: hidden;
+    font-size: 1rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .character-grid .card-body p {
+    display: -webkit-box;
+    min-height: 2.8em;
+    margin: .25rem 0 .6rem;
+    overflow: hidden;
+    font-size: .73rem;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .character-grid .card-more { font-size: .68rem; }
+
+  /* 추천 캐릭터 카드는 기존의 큰 1열 카드 형태를 유지 */
+  .featured-grid .card-image-wrap { aspect-ratio: 4 / 3.7; }
   .archive-heading > p { font-size: .82rem; }
 }
 
