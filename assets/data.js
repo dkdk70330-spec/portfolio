@@ -20,9 +20,21 @@ window.PORTFOLIO_DATA = {
     ]
   },
   "profileLinkServices": [
-    { "id": "twitter", "name": "X / Twitter" },
-    { "id": "instagram", "name": "Instagram" },
-    { "id": "notice", "name": "공지 채널" }
+    {
+      "id": "twitter",
+      "name": "X / Twitter",
+      "icon": "profile-links/twitter.png"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "icon": "profile-links/instagram.png"
+    },
+    {
+      "id": "notice",
+      "name": "공지 채널",
+      "icon": "profile-links/notice.png"
+    }
   ],
   "worlds": [
     {

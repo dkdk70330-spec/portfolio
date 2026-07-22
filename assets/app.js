@@ -186,9 +186,30 @@
 
     if (els.creatorLinks) {
       els.creatorLinks.innerHTML = (creator.links || []).map((link) => {
-        const service = profileLinkCatalog.get(link.id) || { name: link.name || link.id };
+        const service = profileLinkCatalog.get(link.id) || {
+          name: link.name || link.id,
+          icon: ""
+        };
         if (!link.url) return "";
-        return `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(service.name)}</a>`;
+
+        const serviceName = service.name || link.id;
+        const iconMarkup = service.icon
+          ? `<img src="${imagePath(service.icon)}" alt="" />`
+          : `<span class="creator-link-fallback" aria-hidden="true">${escapeHtml(serviceName.slice(0, 1))}</span>`;
+
+        return `
+          <a
+            class="creator-link-icon"
+            href="${escapeHtml(link.url)}"
+            target="_blank"
+            rel="noreferrer"
+            title="${escapeHtml(serviceName)}"
+            aria-label="${escapeHtml(serviceName)} 열기"
+          >
+            ${iconMarkup}
+            <span class="sr-only">${escapeHtml(serviceName)} 열기</span>
+          </a>
+        `;
       }).join("");
       els.creatorLinks.hidden = !els.creatorLinks.childElementCount;
     }
