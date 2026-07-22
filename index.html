@@ -69,6 +69,17 @@
       <div class="featured-grid" id="featuredGrid"></div>
     </section>
 
+    <section class="world-section" id="worlds" aria-labelledby="worldArchiveTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SHARED WORLDS</p>
+          <h2 id="worldArchiveTitle">세계관 아카이브</h2>
+        </div>
+        <p>서로의 이야기가 이어지는 세계를 먼저 둘러보세요.</p>
+      </div>
+      <div class="world-grid" id="worldGrid"></div>
+    </section>
+
     <section class="archive-section" id="characters" aria-labelledby="archiveTitle">
       <div class="section-heading archive-heading">
         <div>
@@ -126,6 +137,17 @@
         <div class="tag-list" id="modalTags"></div>
         <div class="modal-description" id="modalDescription"></div>
 
+        <section class="character-world-panel" id="characterWorldPanel" hidden aria-labelledby="characterWorldName">
+          <button class="world-jump-button" id="openWorldButton" type="button">
+            <span class="world-jump-copy">
+              <small>SHARED WORLD</small>
+              <strong id="characterWorldName"></strong>
+              <span id="characterWorldSummary"></span>
+            </span>
+            <span class="world-jump-action">세계 구경하기 <b aria-hidden="true">↗</b></span>
+          </button>
+        </section>
+
         <section class="platform-panel" aria-labelledby="platformHeading">
           <div class="panel-heading">
             <div>
@@ -138,6 +160,31 @@
 
         <section class="character-content-section" id="characterContentSection" aria-label="캐릭터 추가 콘텐츠">
           <div class="content-list" id="modalContents"></div>
+        </section>
+      </article>
+    </div>
+  </dialog>
+
+  <dialog class="world-modal" id="worldModal" aria-labelledby="worldModalTitle">
+    <div class="world-modal-shell">
+      <button class="modal-close" id="worldModalClose" type="button" aria-label="세계관 상세 닫기">×</button>
+      <div class="world-cover-panel">
+        <img id="worldModalImage" src="" alt="" />
+      </div>
+      <article class="world-modal-content">
+        <p class="modal-kicker">WORLD ARCHIVE</p>
+        <h2 id="worldModalTitle"></h2>
+        <p class="world-modal-summary" id="worldModalSummary"></p>
+        <div class="tag-list" id="worldModalTags"></div>
+        <div class="world-modal-description" id="worldModalDescription"></div>
+        <div class="world-section-list" id="worldModalSections"></div>
+
+        <section class="world-character-section" aria-labelledby="worldCharacterHeading">
+          <div class="panel-heading">
+            <p class="eyebrow">CHARACTERS IN THIS WORLD</p>
+            <h3 id="worldCharacterHeading">이 세계의 캐릭터</h3>
+          </div>
+          <div class="world-character-list" id="worldCharacterList"></div>
         </section>
       </article>
     </div>

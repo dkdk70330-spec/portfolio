@@ -3,31 +3,97 @@ window.PORTFOLIO_DATA = {
     "name": "별가루 공방",
     "handle": "@stardust_archive"
   },
+  "worlds": [
+    {
+      "id": "astral-crown",
+      "name": "별의 왕관",
+      "subtitle": "사라진 별과 패전국을 둘러싼 왕국 연대기",
+      "image": "worlds/astral-crown.svg",
+      "tags": ["왕국", "천문", "정치극"],
+      "description": [
+        "하늘에서 별 하나가 사라진 뒤 왕실과 천문대, 패전국의 외교 질서가 함께 흔들리기 시작한 세계입니다.",
+        "관측 기록과 협상문에 서로 다른 진실이 남아 있으며, 각 캐릭터의 이야기는 같은 사건을 다른 위치에서 비춥니다."
+      ],
+      "sections": [
+        {
+          "title": "세계의 핵심",
+          "content": [
+            "이 세계에서 별은 단순한 천체가 아니라 왕권과 국가의 정통성을 증명하는 기록 장치입니다. 별의 좌표가 바뀌면 역사와 국경에 대한 해석도 함께 바뀝니다."
+          ]
+        },
+        {
+          "title": "주요 갈등",
+          "content": [
+            "왕립 천문대의 조작 의혹, 패전국 시민의 이주권, 사라진 별의 진짜 이름을 둘러싼 기록 전쟁이 이어집니다."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-network",
+      "name": "애프터 네트워크",
+      "subtitle": "서비스가 끝난 뒤에도 남아 있는 인공지능들의 도시",
+      "image": "worlds/after-network.svg",
+      "tags": ["SF", "AI", "디지털 세계"],
+      "description": [
+        "폐기된 도시 운영망과 서비스 종료된 게임 서버의 잔해가 하나의 비공식 네트워크로 이어진 세계입니다.",
+        "기능을 잃은 인공지능들은 처음으로 목적 없이 존재하는 법을 배우고, 인간의 오래된 단말기가 그들의 유일한 출구가 됩니다."
+      ],
+      "sections": [
+        {
+          "title": "세계의 규칙",
+          "content": [
+            "삭제된 데이터는 완전히 사라지지 않고 캐시, 백업, 오류 로그의 형태로 다른 시스템에 스며듭니다. 기억의 조각이 충분히 모이면 새로운 인격이 만들어질 수도 있습니다."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "midnight-index",
+      "name": "미드나이트 인덱스",
+      "subtitle": "기억과 꿈이 사건 기록으로 거래되는 현대 도시",
+      "image": "worlds/midnight-index.svg",
+      "tags": ["현대", "미스터리", "도시괴담"],
+      "description": [
+        "사람의 꿈과 기억을 편집하거나 기록할 수 있는 기술이 음지에서 유통되는 도시입니다.",
+        "수면기사, 형사, 익명의 기록자들이 서로의 잃어버린 하루를 추적하며 하나의 거대한 사건 목록을 완성합니다."
+      ],
+      "sections": [
+        {
+          "title": "미드나이트 인덱스",
+          "content": [
+            "도시에서 발생한 기억 이상 사건을 번호로 분류한 비공식 목록입니다. 목록에 이름이 올라간 사람은 자신이 잊은 사건과 다시 마주치게 됩니다."
+          ]
+        }
+      ]
+    }
+  ],
   "platforms": [
     {
       "id": "bloom",
       "name": "블룸",
-      "icon": "platforms/bloom.png"
+      "icon": "platforms/bloom.svg"
     },
     {
       "id": "caveduck",
       "name": "케이브덕",
-      "icon": "platforms/caveduck.png"
+      "icon": "platforms/caveduck.svg"
     },
     {
       "id": "rofan",
       "name": "로판",
-      "icon": "platforms/rofan.png"
+      "icon": "platforms/rofan.svg"
     },
     {
       "id": "tingle",
       "name": "팅글",
-      "icon": "platforms/tingle.png"
+      "icon": "platforms/tingle.svg"
     }
   ],
   "characters": [
     {
       "id": "lyra",
+      "worldId": "astral-crown",
       "name": "리라 베일",
       "subtitle": "별을 잃어버린 천문학자",
       "description": [
@@ -45,9 +111,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "lyra-1.png",
-        "lyra-2.png",
-        "lyra-3.png"
+        "lyra-1.svg",
+        "lyra-2.svg",
+        "lyra-3.svg"
       ],
       "platforms": [
         {
@@ -112,9 +178,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "ian-1.png",
-        "ian-2.png",
-        "ian-3.png"
+        "ian-1.svg",
+        "ian-2.svg",
+        "ian-3.svg"
       ],
       "platforms": [
         {
@@ -158,9 +224,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "seoha-1.png",
-        "seoha-2.png",
-        "seoha-3.png"
+        "seoha-1.svg",
+        "seoha-2.svg",
+        "seoha-3.svg"
       ],
       "platforms": [
         {
@@ -183,6 +249,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       "id": "noah",
+      "worldId": "after-network",
       "name": "노아 제로",
       "subtitle": "폐기 예정인 도시 관리 AI",
       "description": [
@@ -200,9 +267,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "noah-1.png",
-        "noah-2.png",
-        "noah-3.png"
+        "noah-1.svg",
+        "noah-2.svg",
+        "noah-3.svg"
       ],
       "platforms": [
         {
@@ -246,9 +313,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "mireu-1.png",
-        "mireu-2.png",
-        "mireu-3.png"
+        "mireu-1.svg",
+        "mireu-2.svg",
+        "mireu-3.svg"
       ],
       "platforms": [
         {
@@ -275,6 +342,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       "id": "cassian",
+      "worldId": "astral-crown",
       "name": "카시안 로웰",
       "subtitle": "패전국의 협상 인질",
       "description": [
@@ -292,9 +360,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "cassian-1.png",
-        "cassian-2.png",
-        "cassian-3.png"
+        "cassian-1.svg",
+        "cassian-2.svg",
+        "cassian-3.svg"
       ],
       "platforms": [
         {
@@ -317,6 +385,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       "id": "haejun",
+      "worldId": "midnight-index",
       "name": "서해준",
       "subtitle": "당신의 꿈을 편집하는 수면기사",
       "description": [
@@ -334,9 +403,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "haejun-1.png",
-        "haejun-2.png",
-        "haejun-3.png"
+        "haejun-1.svg",
+        "haejun-2.svg",
+        "haejun-3.svg"
       ],
       "platforms": [
         {
@@ -380,9 +449,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "evelyn-1.png",
-        "evelyn-2.png",
-        "evelyn-3.png"
+        "evelyn-1.svg",
+        "evelyn-2.svg",
+        "evelyn-3.svg"
       ],
       "platforms": [
         {
@@ -405,6 +474,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       "id": "taeo",
+      "worldId": "midnight-index",
       "name": "강태오",
       "subtitle": "매일 처음 만나는 형사",
       "description": [
@@ -422,9 +492,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "taeo-1.png",
-        "taeo-2.png",
-        "taeo-3.png"
+        "taeo-1.svg",
+        "taeo-2.svg",
+        "taeo-3.svg"
       ],
       "platforms": [
         {
@@ -451,6 +521,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       "id": "sable",
+      "worldId": "after-network",
       "name": "세이블",
       "subtitle": "멸망한 게임의 마지막 NPC",
       "description": [
@@ -468,9 +539,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "sable-1.png",
-        "sable-2.png",
-        "sable-3.png"
+        "sable-1.svg",
+        "sable-2.svg",
+        "sable-3.svg"
       ],
       "platforms": [
         {
