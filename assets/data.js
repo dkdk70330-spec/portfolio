@@ -53,12 +53,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "lune",
-          "url": "https://example.com/lune/lyra"
+          "id": "bloom",
+          "url": "https://bloom-ai.me/contents"
         },
         {
-          "id": "moirai",
-          "url": "https://example.com/moirai/lyra"
+          "id": "caveduck",
+          "url": "https://caveduck.io/ko"
         }
       ],
       "spoiler": {
