@@ -1,8 +1,29 @@
 window.PORTFOLIO_DATA = {
-  "creator": {
-    "name": "별가루 공방",
-    "handle": "@stardust_archive"
+  "version": 1,
+  "site": {
+    "title": "별개의 서재",
+    "description": "다정한 파국과 오래 남는 관계를 수집하는 AI 캐릭터 아카이브"
   },
+  "creator": {
+    "avatar": "",
+    "fallbackText": "별",
+    "name": "별가루 공방",
+    "handle": "@stardust_archive",
+    "bio": [
+      "다정한 파국과 오래 남는 대화를 만듭니다.",
+      "판타지, 미스터리, 현대 로맨스를 중심으로 여러 AI 채팅 플랫폼에서 캐릭터를 공개하고 있어요."
+    ],
+    "links": [
+      { "id": "twitter", "url": "https://x.com" },
+      { "id": "instagram", "url": "https://instagram.com" },
+      { "id": "notice", "url": "https://example.com" }
+    ]
+  },
+  "profileLinkServices": [
+    { "id": "twitter", "name": "X / Twitter" },
+    { "id": "instagram", "name": "Instagram" },
+    { "id": "notice", "name": "공지 채널" }
+  ],
   "worlds": [
     {
       "id": "astral-crown",

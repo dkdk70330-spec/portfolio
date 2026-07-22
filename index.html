@@ -14,7 +14,7 @@
     <nav class="topbar" aria-label="주요 메뉴">
       <a class="brand" href="#top" aria-label="홈으로 이동">
         <span class="brand-mark">✦</span>
-        <span>별개의 서재</span>
+        <span id="siteTitle">별개의 서재</span>
       </a>
       <div class="topbar-actions">
         <button class="icon-button" id="themeToggle" type="button" aria-label="밝은 테마로 변경">☀</button>
@@ -24,40 +24,38 @@
 
     <div class="hero-grid">
       <section class="creator-card" aria-labelledby="creatorName">
-        <div class="creator-avatar" aria-hidden="true">별</div>
-        <div>
+        <div class="creator-avatar">
+          <img id="creatorAvatar" src="" alt="" hidden />
+          <span id="creatorAvatarFallback" aria-hidden="true">별</span>
+        </div>
+
+        <div class="creator-copy">
+          <p class="creator-manifesto" id="siteDescription">다정한 파국과 오래 남는 관계를 수집하는 AI 캐릭터 아카이브</p>
           <h1 id="creatorName">별가루 공방</h1>
-          <p class="creator-handle">@stardust_archive</p>
-          <p class="creator-bio">
-            다정한 파국과 오래 남는 대화를 만듭니다. 판타지, 미스터리, 현대 로맨스를 중심으로
-            여러 AI 채팅 플랫폼에서 캐릭터를 공개하고 있어요.
-          </p>
-          <div class="creator-links" aria-label="제작자 외부 링크">
-            <a href="https://x.com" target="_blank" rel="noreferrer">X / Twitter</a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="https://example.com" target="_blank" rel="noreferrer">공지 채널</a>
+          <p class="creator-handle" id="creatorHandle">@stardust_archive</p>
+          <div class="creator-bio" id="creatorBio"></div>
+          <div class="creator-links" id="creatorLinks" aria-label="제작자 외부 링크"></div>
+
+          <div class="hero-stats" aria-label="포트폴리오 요약">
+            <div><strong id="characterCount">10</strong><span>캐릭터</span></div>
+            <div><strong id="platformCount">4</strong><span>플랫폼</span></div>
+            <div><strong id="genreCount">6</strong><span>장르</span></div>
           </div>
         </div>
       </section>
 
-      <section class="hero-copy" aria-labelledby="heroTitle">
-        <div class="hero-stats" aria-label="포트폴리오 요약">
-          <div><strong id="characterCount">10</strong><span>Characters</span></div>
-          <div><strong id="platformCount">4</strong><span>Platforms</span></div>
-          <div><strong id="genreCount">6</strong><span>Genres</span></div>
-        </div>
-      </section>
+      <aside class="hero-spotlight" id="heroSpotlight" aria-labelledby="heroSpotlightTitle"></aside>
     </div>
   </header>
 
   <main>
-    <section class="featured-section" aria-labelledby="featuredTitle">
+    <section class="featured-section" id="featuredSection" aria-labelledby="featuredTitle">
       <div class="section-heading">
         <div>
           <p class="eyebrow">FEATURED</p>
-          <h2 id="featuredTitle">먼저 만나볼 캐릭터</h2>
+          <h2 id="featuredTitle">이어 만나볼 캐릭터</h2>
         </div>
-        <p>제작자가 고른 입문 추천작입니다.</p>
+        <p>입문 캐릭터 다음으로 둘러보기 좋은 추천작입니다.</p>
       </div>
       <div class="featured-grid" id="featuredGrid"></div>
     </section>

@@ -8,6 +8,16 @@
   };
 
   const els = {
+    siteTitle: document.querySelector("#siteTitle"),
+    siteDescription: document.querySelector("#siteDescription"),
+    creatorAvatar: document.querySelector("#creatorAvatar"),
+    creatorAvatarFallback: document.querySelector("#creatorAvatarFallback"),
+    creatorName: document.querySelector("#creatorName"),
+    creatorHandle: document.querySelector("#creatorHandle"),
+    creatorBio: document.querySelector("#creatorBio"),
+    creatorLinks: document.querySelector("#creatorLinks"),
+    heroSpotlight: document.querySelector("#heroSpotlight"),
+    featuredSection: document.querySelector("#featuredSection"),
     featuredGrid: document.querySelector("#featuredGrid"),
     worldGrid: document.querySelector("#worldGrid"),
     characterGrid: document.querySelector("#characterGrid"),
@@ -56,6 +66,8 @@
   const unique = (items) => [...new Set(items)].sort((a, b) => a.localeCompare(b, "ko"));
   const platformCatalog = new Map((data.platforms || []).map((platform) => [platform.id, platform]));
   const worldCatalog = new Map((data.worlds || []).map((world) => [world.id, world]));
+  const profileLinkCatalog = new Map((data.profileLinkServices || []).map((service) => [service.id, service]));
+  const spotlightCharacter = data.characters.find((character) => character.featured) || data.characters[0] || null;
 
   function getPlatform(platformLink) {
     const id = typeof platformLink === "string" ? platformLink : platformLink.id;
@@ -89,6 +101,65 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
+  }
+
+  function renderSiteAndCreator() {
+    const site = data.site || {};
+    const creator = data.creator || {};
+    const title = site.title || "캐릭터 포트폴리오";
+    const description = site.description || "";
+
+    if (els.siteTitle) els.siteTitle.textContent = title;
+    if (els.siteDescription) {
+      els.siteDescription.textContent = description;
+      els.siteDescription.hidden = !description;
+    }
+    document.title = `${title} | ${creator.name || "AI 캐릭터 포트폴리오"}`;
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription && description) metaDescription.setAttribute("content", description);
+
+    if (els.creatorName) els.creatorName.textContent = creator.name || "";
+    if (els.creatorHandle) {
+      els.creatorHandle.textContent = creator.handle || "";
+      els.creatorHandle.hidden = !creator.handle;
+    }
+
+    const bio = Array.isArray(creator.bio) ? creator.bio : creator.bio ? [creator.bio] : [];
+    if (els.creatorBio) {
+      els.creatorBio.innerHTML = bio.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+      els.creatorBio.hidden = bio.length === 0;
+    }
+
+    if (els.creatorAvatar && els.creatorAvatarFallback) {
+      const fallbackText = creator.fallbackText || creator.name?.trim()?.slice(0, 1) || "✦";
+      els.creatorAvatarFallback.textContent = fallbackText;
+
+      if (creator.avatar) {
+        els.creatorAvatar.src = imagePath(creator.avatar);
+        els.creatorAvatar.alt = creator.name ? `${creator.name} 프로필 이미지` : "제작자 프로필 이미지";
+        els.creatorAvatar.onload = () => {
+          els.creatorAvatar.hidden = false;
+          els.creatorAvatarFallback.hidden = true;
+        };
+        els.creatorAvatar.onerror = () => {
+          els.creatorAvatar.hidden = true;
+          els.creatorAvatarFallback.hidden = false;
+        };
+      } else {
+        els.creatorAvatar.hidden = true;
+        els.creatorAvatarFallback.hidden = false;
+      }
+    }
+
+    if (els.creatorLinks) {
+      els.creatorLinks.innerHTML = (creator.links || []).map((link) => {
+        const service = profileLinkCatalog.get(link.id) || { name: link.name || link.id };
+        if (!link.url) return "";
+        return `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(service.name)}</a>`;
+      }).join("");
+      els.creatorLinks.hidden = !els.creatorLinks.childElementCount;
+    }
   }
 
   function platformDots(character) {
@@ -218,11 +289,45 @@
     `;
   }
 
+  function renderHeroSpotlight() {
+    if (!els.heroSpotlight || !spotlightCharacter) {
+      if (els.heroSpotlight) els.heroSpotlight.hidden = true;
+      return;
+    }
+
+    const world = getWorld(spotlightCharacter.worldId);
+    const genreTags = (spotlightCharacter.genres || []).slice(0, 2)
+      .map((genre) => `<span>${escapeHtml(genre)}</span>`)
+      .join("");
+
+    els.heroSpotlight.innerHTML = `
+      <div class="spotlight-image-wrap">
+        <img class="spotlight-image" src="${imagePath(spotlightCharacter.images[0])}" alt="${escapeHtml(spotlightCharacter.name)} 대표 이미지" />
+        <div class="spotlight-platforms" aria-label="이용 가능 플랫폼">${platformDots(spotlightCharacter)}</div>
+      </div>
+      <div class="spotlight-content">
+        <p class="spotlight-eyebrow">처음 만날 캐릭터</p>
+        <div class="spotlight-tags">${genreTags}</div>
+        <h2 id="heroSpotlightTitle">${escapeHtml(spotlightCharacter.name)}</h2>
+        <p>${escapeHtml(spotlightCharacter.subtitle)}</p>
+        ${world ? `<span class="spotlight-world">${escapeHtml(world.name)} 세계관</span>` : ""}
+        <div class="spotlight-actions">
+          <button class="spotlight-primary" type="button" data-character-id="${escapeHtml(spotlightCharacter.id)}">캐릭터 보기 <b aria-hidden="true">↗</b></button>
+          ${world ? `<button class="spotlight-secondary" type="button" data-world-id="${escapeHtml(world.id)}">세계 구경하기</button>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
   function renderFeatured() {
-    els.featuredGrid.innerHTML = data.characters
-      .filter((character) => character.featured)
+    const featuredCharacters = data.characters
+      .filter((character) => character.featured && character.id !== spotlightCharacter?.id);
+
+    els.featuredGrid.innerHTML = featuredCharacters
       .map((character) => characterCard(character, true))
       .join("");
+
+    if (els.featuredSection) els.featuredSection.hidden = featuredCharacters.length === 0;
   }
 
   function renderWorlds() {
@@ -495,6 +600,8 @@
     updateThemeButton();
   });
 
+  renderSiteAndCreator();
+  renderHeroSpotlight();
   renderFeatured();
   renderWorlds();
   renderAll();
