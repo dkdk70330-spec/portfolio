@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#071a24"/><stop offset=".55" stop-color="#0c5a70"/><stop offset="1" stop-color="#8cf8ff"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-opacity=".23" stroke-width="3"><path d="M110 160h240v160h220v190h220v-110h300"/><path d="M220 600V440h240V250h300V110"/></g>
+  <g fill="#d8ff62"><circle cx="350" cy="320" r="12"/><circle cx="570" cy="510" r="12"/><circle cx="760" cy="250" r="12"/><circle cx="790" cy="400" r="12"/></g>
+  <text x="80" y="95" fill="#fff" font-size="26" font-family="sans-serif" letter-spacing="12">WORLD / 02</text>
+  <text x="80" y="620" fill="#fff" font-size="72" font-weight="800" font-family="sans-serif">애프터 네트워크</text>
+</svg>

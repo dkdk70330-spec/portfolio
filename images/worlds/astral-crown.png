@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#25154c"/><stop offset=".55" stop-color="#5c45c8"/><stop offset="1" stop-color="#d8ff62"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#g)"/>
+  <circle cx="820" cy="215" r="165" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <circle cx="820" cy="215" r="95" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M120 560C310 360 500 330 710 570" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="3"/>
+  <path d="M795 210l25-55 25 55 55 25-55 25-25 55-25-55-55-25z" fill="#d8ff62"/>
+  <text x="80" y="95" fill="#fff" font-size="26" font-family="sans-serif" letter-spacing="12">WORLD / 01</text>
+  <text x="80" y="620" fill="#fff" font-size="72" font-weight="800" font-family="sans-serif">별의 왕관</text>
+</svg>
