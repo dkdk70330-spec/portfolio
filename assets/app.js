@@ -444,6 +444,93 @@
     document.body.classList.toggle("modal-open", Boolean(els.modal.open || els.worldModal.open));
   }
 
+
+  function enableHorizontalDrag(rail) {
+    if (!rail) return () => {};
+
+    const wrapper = rail.closest(".platform-rail-wrap");
+    let pointerId = null;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let moved = false;
+    let suppressNextClick = false;
+
+    const updateRailState = () => {
+      if (!wrapper) return;
+
+      const maxScrollLeft = Math.max(0, rail.scrollWidth - rail.clientWidth);
+      const overflowing = maxScrollLeft > 2;
+
+      wrapper.classList.toggle("is-overflowing", overflowing);
+      wrapper.classList.toggle("can-scroll-left", overflowing && rail.scrollLeft > 2);
+      wrapper.classList.toggle(
+        "can-scroll-right",
+        overflowing && rail.scrollLeft < maxScrollLeft - 2
+      );
+    };
+
+    rail.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startScrollLeft = rail.scrollLeft;
+      moved = false;
+      rail.setPointerCapture(pointerId);
+    });
+
+    rail.addEventListener("pointermove", (event) => {
+      if (pointerId !== event.pointerId) return;
+
+      const distance = event.clientX - startX;
+      if (Math.abs(distance) > 5) {
+        moved = true;
+        suppressNextClick = true;
+        rail.classList.add("is-dragging");
+      }
+
+      if (moved) {
+        event.preventDefault();
+        rail.scrollLeft = startScrollLeft - distance;
+        updateRailState();
+      }
+    });
+
+    const finishDrag = (event) => {
+      if (pointerId !== event.pointerId) return;
+
+      if (rail.hasPointerCapture(pointerId)) {
+        rail.releasePointerCapture(pointerId);
+      }
+
+      pointerId = null;
+      rail.classList.remove("is-dragging");
+      updateRailState();
+    };
+
+    rail.addEventListener("pointerup", finishDrag);
+    rail.addEventListener("pointercancel", finishDrag);
+    rail.addEventListener("scroll", updateRailState, { passive: true });
+
+    rail.addEventListener(
+      "click",
+      (event) => {
+        if (!suppressNextClick) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        suppressNextClick = false;
+      },
+      true
+    );
+
+    window.addEventListener("resize", updateRailState);
+    requestAnimationFrame(updateRailState);
+
+    return updateRailState;
+  }
+
   function openCharacter(character) {
     if (!character) return;
     if (els.worldModal.open) els.worldModal.close();
@@ -508,13 +595,16 @@
             title="${escapeHtml(platform.name)}"
             aria-label="${escapeHtml(platform.name)}에서 대화하기"
             data-platform-name="${escapeHtml(platform.name)}"
+            draggable="false"
           >
-            <img src="${imagePath(platform.icon)}" alt="" />
+            <img src="${imagePath(platform.icon)}" alt="" draggable="false" />
             <span class="sr-only">${escapeHtml(platform.name)}에서 대화하기</span>
           </a>
         `;
       })
       .join("");
+
+    requestAnimationFrame(updateModalPlatformRail);
 
     const contents = normalizeContents(character);
     els.characterContentSection.hidden = contents.length === 0;
@@ -569,6 +659,8 @@
     if (els.worldModal.open) els.worldModal.close();
     syncModalOpenState();
   }
+
+  const updateModalPlatformRail = enableHorizontalDrag(els.modalPlatforms);
 
   document.addEventListener("click", (event) => {
     const worldCharacter = event.target.closest("[data-world-character-id]");
