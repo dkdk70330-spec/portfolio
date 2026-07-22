@@ -1,23 +1,25 @@
+/*메인 화면*/
 window.PORTFOLIO_DATA = {
   "creator": {
     "name": "별가루 공방",
     "handle": "@stardust_archive"
   },
+  /*플랫폼 로고 관리*/
   "platforms": [
     {
-      "id": "lune",
-      "name": "Lune",
-      "icon": "platforms/lune.svg"
+      "id": "bloom",
+      "name": "블룸 바로가기",
+      "icon": "platforms/bloom.png"
     },
     {
-      "id": "moirai",
-      "name": "Moirai",
-      "icon": "platforms/moirai.svg"
+      "id": "caveduck",
+      "name": "케이브덕 바로가기",
+      "icon": "platforms/caveduck.png"
     },
     {
-      "id": "charroom",
-      "name": "CharRoom",
-      "icon": "platforms/charroom.svg"
+      "id": "rofan",
+      "name": "로판 바로가기",
+      "icon": "platforms/rofan.png"
     },
     {
       "id": "orbit",
