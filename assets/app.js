@@ -37,8 +37,19 @@
 
   const imagePath = (file) => `./images/${file}`;
   const unique = (items) => [...new Set(items)].sort((a, b) => a.localeCompare(b, "ko"));
+  const platformCatalog = new Map((data.platforms || []).map((platform) => [platform.id, platform]));
+
+  function getPlatform(platformLink) {
+    const id = typeof platformLink === "string" ? platformLink : platformLink.id;
+    return platformCatalog.get(id) || {
+      id,
+      name: platformLink.name || id,
+      icon: platformLink.icon || "platforms/default.svg"
+    };
+  }
+
   const genres = unique(data.characters.flatMap((character) => character.genres));
-  const platforms = unique(data.characters.flatMap((character) => character.platforms.map((item) => item.name)));
+  const platforms = unique(data.characters.flatMap((character) => character.platforms.map((item) => getPlatform(item).name)));
 
   els.characterCount.textContent = data.characters.length;
   els.platformCount.textContent = platforms.length;
@@ -55,7 +66,14 @@
 
   function platformDots(character) {
     return character.platforms
-      .map((platform) => `<span class="platform-dot" title="${escapeHtml(platform.name)}">${escapeHtml(platform.name.slice(0, 1))}</span>`)
+      .map((platformLink) => {
+        const platform = getPlatform(platformLink);
+        return `
+          <span class="platform-dot" title="${escapeHtml(platform.name)}" aria-label="${escapeHtml(platform.name)}">
+            <img src="${imagePath(platform.icon)}" alt="" />
+          </span>
+        `;
+      })
       .join("");
   }
 
@@ -111,12 +129,12 @@
         character.subtitle,
         ...character.genres,
         ...character.tags,
-        ...character.platforms.map((platform) => platform.name)
+        ...character.platforms.map((platform) => getPlatform(platform).name)
       ].join(" ").toLocaleLowerCase("ko");
 
       const queryMatch = !normalizedQuery || searchable.includes(normalizedQuery);
       const genreMatch = state.genre === "전체" || character.genres.includes(state.genre);
-      const platformMatch = state.platform === "전체" || character.platforms.some((item) => item.name === state.platform);
+      const platformMatch = state.platform === "전체" || character.platforms.some((item) => getPlatform(item).name === state.platform);
       return queryMatch && genreMatch && platformMatch;
     });
   }
@@ -159,13 +177,23 @@
       .join("");
     els.modalDescription.innerHTML = character.description.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
     els.modalPlatforms.innerHTML = character.platforms
-      .map((platform) => `
-        <a href="${escapeHtml(platform.url)}" target="_blank" rel="noreferrer">
-          <span class="platform-icon">${escapeHtml(platform.name.slice(0, 1))}</span>
-          <span><strong>${escapeHtml(platform.label)}</strong><small>새 창에서 열기</small></span>
-          <b aria-hidden="true">↗</b>
-        </a>
-      `)
+      .map((platformLink) => {
+        const platform = getPlatform(platformLink);
+        return `
+          <a
+            class="platform-link"
+            href="${escapeHtml(platformLink.url)}"
+            target="_blank"
+            rel="noreferrer"
+            title="${escapeHtml(platform.name)}"
+            aria-label="${escapeHtml(platform.name)}에서 대화하기"
+            data-platform-name="${escapeHtml(platform.name)}"
+          >
+            <img src="${imagePath(platform.icon)}" alt="" />
+            <span class="sr-only">${escapeHtml(platform.name)}에서 대화하기</span>
+          </a>
+        `;
+      })
       .join("");
 
     if (character.spoiler) {
