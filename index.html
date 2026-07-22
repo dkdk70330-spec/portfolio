@@ -139,13 +139,15 @@
     <div class="modal-shell">
       <button class="modal-close" id="modalClose" type="button" aria-label="캐릭터 상세 닫기">×</button>
       <div class="modal-gallery">
+        <header class="modal-identity">
+          <h2 id="modalTitle"></h2>
+          <p class="modal-summary" id="modalSummary"></p>
+        </header>
         <img id="modalMainImage" src="" alt="" />
-        <div class="gallery-thumbnails" id="galleryThumbnails"></div>
+        <div class="gallery-thumbnails" id="galleryThumbnails" hidden></div>
       </div>
       <article class="modal-content">
         <div class="modal-kicker" id="modalKicker"></div>
-        <h2 id="modalTitle"></h2>
-        <p class="modal-summary" id="modalSummary"></p>
         <div class="tag-list" id="modalTags"></div>
         <div class="modal-description" id="modalDescription"></div>
 
@@ -160,13 +162,7 @@
           </button>
         </section>
 
-        <section class="platform-panel" aria-labelledby="platformHeading">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">START A CHAT</p>
-              <h3 id="platformHeading">이 캐릭터와 대화하기</h3>
-            </div>
-          </div>
+        <section class="platform-panel" aria-label="캐릭터 플랫폼 링크">
           <div class="platform-links" id="modalPlatforms"></div>
         </section>
 

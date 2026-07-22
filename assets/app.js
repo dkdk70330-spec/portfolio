@@ -448,15 +448,29 @@
     if (!character) return;
     if (els.worldModal.open) els.worldModal.close();
 
-    els.modalMainImage.src = imagePath(character.images[0]);
-    els.modalMainImage.alt = `${character.name} 이미지 1`;
-    els.galleryThumbnails.innerHTML = character.images
-      .map((image, index) => `
-        <button class="thumbnail-button ${index === 0 ? "active" : ""}" type="button" data-gallery-image="${imagePath(image)}" data-gallery-alt="${escapeHtml(character.name)} 이미지 ${index + 1}">
-          <img src="${imagePath(image)}" alt="" />
-        </button>
-      `)
-      .join("");
+    const galleryImages = (character.images || []).slice(0, 5);
+    const hasMainImage = galleryImages.length > 0;
+
+    els.modalMainImage.hidden = !hasMainImage;
+    if (hasMainImage) {
+      els.modalMainImage.src = imagePath(galleryImages[0]);
+      els.modalMainImage.alt = `${character.name} 이미지 1`;
+    } else {
+      els.modalMainImage.removeAttribute("src");
+      els.modalMainImage.alt = "";
+    }
+
+    const showThumbnails = galleryImages.length > 1;
+    els.galleryThumbnails.hidden = !showThumbnails;
+    els.galleryThumbnails.innerHTML = showThumbnails
+      ? galleryImages
+          .map((image, index) => `
+            <button class="thumbnail-button ${index === 0 ? "active" : ""}" type="button" data-gallery-image="${imagePath(image)}" data-gallery-alt="${escapeHtml(character.name)} 이미지 ${index + 1}" aria-label="${escapeHtml(character.name)} 이미지 ${index + 1} 보기">
+              <img src="${imagePath(image)}" alt="" />
+            </button>
+          `)
+          .join("")
+      : "";
 
     els.modalKicker.textContent = character.genres.join(" · ");
     els.modalTitle.textContent = character.name;
@@ -478,7 +492,11 @@
       els.characterWorldSummary.textContent = "";
     }
 
-    els.modalPlatforms.innerHTML = character.platforms
+    const platformLinks = character.platforms || [];
+    const platformPanel = els.modalPlatforms.closest(".platform-panel");
+    if (platformPanel) platformPanel.hidden = platformLinks.length === 0;
+
+    els.modalPlatforms.innerHTML = platformLinks
       .map((platformLink) => {
         const platform = getPlatform(platformLink);
         return `
