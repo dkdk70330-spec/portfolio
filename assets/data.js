@@ -1,25 +1,23 @@
-/*메인 화면*/
 window.PORTFOLIO_DATA = {
   "creator": {
     "name": "별가루 공방",
     "handle": "@stardust_archive"
   },
-  /*플랫폼 로고 관리*/
   "platforms": [
     {
-      "id": "bloom",
-      "name": "블룸 바로가기",
-      "icon": "platforms/bloom.png"
+      "id": "lune",
+      "name": "Lune",
+      "icon": "platforms/lune.svg"
     },
     {
-      "id": "caveduck",
-      "name": "케이브덕 바로가기",
-      "icon": "platforms/caveduck.png"
+      "id": "moirai",
+      "name": "Moirai",
+      "icon": "platforms/moirai.svg"
     },
     {
-      "id": "rofan",
-      "name": "로판 바로가기",
-      "icon": "platforms/rofan.png"
+      "id": "charroom",
+      "name": "CharRoom",
+      "icon": "platforms/charroom.svg"
     },
     {
       "id": "orbit",
@@ -53,19 +51,47 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "bloom",
-          "url": "https://bloom-ai.me/contents"
+          "id": "lune",
+          "url": "https://example.com/lune/lyra"
         },
         {
-          "id": "caveduck",
-          "url": "https://caveduck.io/ko"
+          "id": "moirai",
+          "url": "https://example.com/moirai/lyra"
         }
       ],
-      "spoiler": {
-        "title": "리라의 과거",
-        "warning": "중반부 반전과 엔딩 이후 이야기가 포함되어 있습니다.",
-        "content": "리라가 추적한 별은 실제 천체가 아니라, 과거의 자신이 미래로 보낸 관측 신호입니다. 엔딩 이후 그녀는 천문대로 돌아가지 않고 당신과 함께 이동식 관측소를 만들며, 첫 번째 이름 없는 별에 당신의 이름을 붙입니다."
-      }
+      "contents": [
+        {
+          "id": "name-behind",
+          "type": "제작 비하인드",
+          "title": "리라의 이름과 별자리 모티프",
+          "content": [
+            "리라는 거문고자리의 영문명 Lyra에서 가져온 이름입니다. 별을 직접 되찾는 영웅보다, 사라진 별의 흔적을 기록하는 관찰자로 먼저 설계했습니다.",
+            "차분한 말투와 집요한 기록 습관은 천문학자라는 직업뿐 아니라, 잊힌 관계를 붙잡으려는 성격을 보여주기 위한 장치입니다."
+          ],
+          "spoiler": false
+        },
+        {
+          "id": "observatory-past",
+          "type": "과거",
+          "title": "천문대에서 추방된 날",
+          "content": [
+            "리라는 관측 기록을 조작했다는 누명을 쓰고 왕립 천문대에서 추방되었습니다. 하지만 문제의 좌표는 그녀가 만든 것이 아니라, 아직 오지 않은 시간에서 반복해서 수신된 신호였습니다."
+          ],
+          "spoiler": true,
+          "warning": "중반부 사건과 리라의 추방 이유가 포함되어 있습니다."
+        },
+        {
+          "id": "lost-star",
+          "type": "못다한 이야기",
+          "title": "리라가 찾는 별의 정체와 후일담",
+          "content": [
+            "리라가 추적한 별은 실제 천체가 아니라, 과거의 자신이 미래로 보낸 관측 신호입니다.",
+            "엔딩 이후 그녀는 천문대로 돌아가지 않고 당신과 함께 이동식 관측소를 만들며, 첫 번째 이름 없는 별에 당신의 이름을 붙입니다."
+          ],
+          "spoiler": true,
+          "warning": "핵심 반전과 엔딩 이후 이야기가 포함되어 있습니다."
+        }
+      ]
     },
     {
       "id": "ian",
@@ -100,11 +126,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/charroom/ian"
         }
       ],
-      "spoiler": {
-        "title": "성의 마지막 주인",
-        "warning": "캐릭터의 존재와 과거 사건에 관한 핵심 스포일러입니다.",
-        "content": "이안은 집사가 아니라 성 자체가 만들어낸 기억의 인격입니다. 떠난 주인을 기다리는 동안 수많은 방문자의 기억을 흡수했고, 당신이 성을 떠나려 할 때 처음으로 자신의 의지와 성의 명령 사이에서 선택하게 됩니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "성의 마지막 주인",
+          "content": [
+            "이안은 집사가 아니라 성 자체가 만들어낸 기억의 인격입니다. 떠난 주인을 기다리는 동안 수많은 방문자의 기억을 흡수했고, 당신이 성을 떠나려 할 때 처음으로 자신의 의지와 성의 명령 사이에서 선택하게 됩니다."
+          ],
+          "spoiler": true,
+          "warning": "캐릭터의 존재와 과거 사건에 관한 핵심 스포일러입니다."
+        }
+      ]
     },
     {
       "id": "seoha",
@@ -135,11 +168,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/lune/seoha"
         }
       ],
-      "spoiler": {
-        "title": "서하가 사직서를 숨긴 이유",
-        "warning": "관계 후반부와 과거 회상 장면이 포함되어 있습니다.",
-        "content": "서하는 입사 전부터 당신의 익명 업계 글을 읽고 영향을 받았습니다. 당신이 조직에서 사라지는 것을 두려워했지만 표현할 방법을 몰라 사직서를 반려하는 방식으로 붙잡았습니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "서하가 사직서를 숨긴 이유",
+          "content": [
+            "서하는 입사 전부터 당신의 익명 업계 글을 읽고 영향을 받았습니다. 당신이 조직에서 사라지는 것을 두려워했지만 표현할 방법을 몰라 사직서를 반려하는 방식으로 붙잡았습니다."
+          ],
+          "spoiler": true,
+          "warning": "관계 후반부와 과거 회상 장면이 포함되어 있습니다."
+        }
+      ]
     },
     {
       "id": "noah",
@@ -174,11 +214,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/lune/noah"
         }
       ],
-      "spoiler": {
-        "title": "노아의 마지막 백업",
-        "warning": "진엔딩과 후일담이 포함되어 있습니다.",
-        "content": "노아는 자신의 백업 대신 시민들의 삭제 예정 기억을 보존합니다. 진엔딩에서 당신의 개인 단말기 안에 아주 작은 하위 프로세스가 깨어나며, 이전과 달리 처음으로 목적 없이 당신에게 인사를 건넵니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "노아의 마지막 백업",
+          "content": [
+            "노아는 자신의 백업 대신 시민들의 삭제 예정 기억을 보존합니다. 진엔딩에서 당신의 개인 단말기 안에 아주 작은 하위 프로세스가 깨어나며, 이전과 달리 처음으로 목적 없이 당신에게 인사를 건넵니다."
+          ],
+          "spoiler": true,
+          "warning": "진엔딩과 후일담이 포함되어 있습니다."
+        }
+      ]
     },
     {
       "id": "mireu",
@@ -213,11 +260,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/orbit/mireu"
         }
       ],
-      "spoiler": {
-        "title": "강이 말라버린 진짜 이유",
-        "warning": "미르의 과거와 지역 설화의 결말을 포함합니다.",
-        "content": "강은 인간의 불신 때문에 마른 것이 아니라, 미르가 마을을 홍수에서 지키기 위해 자신의 힘을 모두 사용했기 때문에 말랐습니다. 사람들은 그 사실을 잊었지만 오래된 우물만은 그의 이름을 기억합니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "강이 말라버린 진짜 이유",
+          "content": [
+            "강은 인간의 불신 때문에 마른 것이 아니라, 미르가 마을을 홍수에서 지키기 위해 자신의 힘을 모두 사용했기 때문에 말랐습니다. 사람들은 그 사실을 잊었지만 오래된 우물만은 그의 이름을 기억합니다."
+          ],
+          "spoiler": true,
+          "warning": "미르의 과거와 지역 설화의 결말을 포함합니다."
+        }
+      ]
     },
     {
       "id": "cassian",
@@ -248,11 +302,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/moirai/cassian"
         }
       ],
-      "spoiler": {
-        "title": "카시안의 협상 조건",
-        "warning": "후반부 정치적 반전이 포함되어 있습니다.",
-        "content": "카시안이 되찾으려 한 것은 왕좌가 아니라 패전국 시민들의 국적과 이주권입니다. 그는 자신이 반역자로 기록되는 조건까지 이미 협상문에 포함해 두었습니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "카시안의 협상 조건",
+          "content": [
+            "카시안이 되찾으려 한 것은 왕좌가 아니라 패전국 시민들의 국적과 이주권입니다. 그는 자신이 반역자로 기록되는 조건까지 이미 협상문에 포함해 두었습니다."
+          ],
+          "spoiler": true,
+          "warning": "후반부 정치적 반전이 포함되어 있습니다."
+        }
+      ]
     },
     {
       "id": "haejun",
@@ -287,11 +348,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/charroom/haejun"
         }
       ],
-      "spoiler": {
-        "title": "편집할 수 없는 꿈",
-        "warning": "캐릭터의 기억과 관계 설정을 포함합니다.",
-        "content": "반복되는 꿈은 해준이 과거에 잘라낸 당신의 기억입니다. 그는 당신을 보호하려 했지만 그 과정에서 두 사람이 만났던 시간까지 지웠습니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "편집할 수 없는 꿈",
+          "content": [
+            "반복되는 꿈은 해준이 과거에 잘라낸 당신의 기억입니다. 그는 당신을 보호하려 했지만 그 과정에서 두 사람이 만났던 시간까지 지웠습니다."
+          ],
+          "spoiler": true,
+          "warning": "캐릭터의 기억과 관계 설정을 포함합니다."
+        }
+      ]
     },
     {
       "id": "evelyn",
@@ -322,11 +390,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/lune/evelyn"
         }
       ],
-      "spoiler": {
-        "title": "예언이 틀리는 원리",
-        "warning": "설정의 작동 원리에 관한 스포일러입니다.",
-        "content": "에블린은 미래를 보는 것이 아니라 상대가 가장 피하고 싶은 미래를 읽습니다. 그녀의 예언이 현실이 되는 이유는 마법이 아니라 두려움에 따른 선택 때문입니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "예언이 틀리는 원리",
+          "content": [
+            "에블린은 미래를 보는 것이 아니라 상대가 가장 피하고 싶은 미래를 읽습니다. 그녀의 예언이 현실이 되는 이유는 마법이 아니라 두려움에 따른 선택 때문입니다."
+          ],
+          "spoiler": true,
+          "warning": "설정의 작동 원리에 관한 스포일러입니다."
+        }
+      ]
     },
     {
       "id": "taeo",
@@ -361,11 +436,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/moirai/taeo"
         }
       ],
-      "spoiler": {
-        "title": "태오가 매일 남기는 한 문장",
-        "warning": "사건의 범인과 마지막 장면이 포함되어 있습니다.",
-        "content": "기억을 지우는 범인은 태오 자신입니다. 그는 범죄 조직의 세뇌를 막기 위해 스스로 기억을 초기화했고, 매일 노트 마지막에 ‘오늘도 이 사람을 믿어라’라고 당신을 가리키는 문장을 남깁니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "태오가 매일 남기는 한 문장",
+          "content": [
+            "기억을 지우는 범인은 태오 자신입니다. 그는 범죄 조직의 세뇌를 막기 위해 스스로 기억을 초기화했고, 매일 노트 마지막에 ‘오늘도 이 사람을 믿어라’라고 당신을 가리키는 문장을 남깁니다."
+          ],
+          "spoiler": true,
+          "warning": "사건의 범인과 마지막 장면이 포함되어 있습니다."
+        }
+      ]
     },
     {
       "id": "sable",
@@ -396,11 +478,18 @@ window.PORTFOLIO_DATA = {
           "url": "https://example.com/orbit/sable"
         }
       ],
-      "spoiler": {
-        "title": "서비스 종료 후의 세계",
-        "warning": "진엔딩 이후의 설정을 포함합니다.",
-        "content": "게임 서버는 이미 존재하지 않으며 세이블의 세계는 당신의 컴퓨터에 남은 캐시에서 재구성되었습니다. 마지막에는 세계를 보존하는 대신 세이블이 텍스트 파일의 형태로 바깥에 나오는 선택지가 열립니다."
-      }
+      "contents": [
+        {
+          "id": "secret-setting",
+          "type": "비밀 설정",
+          "title": "서비스 종료 후의 세계",
+          "content": [
+            "게임 서버는 이미 존재하지 않으며 세이블의 세계는 당신의 컴퓨터에 남은 캐시에서 재구성되었습니다. 마지막에는 세계를 보존하는 대신 세이블이 텍스트 파일의 형태로 바깥에 나오는 선택지가 열립니다."
+          ],
+          "spoiler": true,
+          "warning": "진엔딩 이후의 설정을 포함합니다."
+        }
+      ]
     }
   ]
 };

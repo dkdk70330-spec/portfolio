@@ -28,10 +28,8 @@
     modalTags: document.querySelector("#modalTags"),
     modalDescription: document.querySelector("#modalDescription"),
     modalPlatforms: document.querySelector("#modalPlatforms"),
-    spoilerBox: document.querySelector("#spoilerBox"),
-    spoilerTitle: document.querySelector("#spoilerTitle"),
-    spoilerWarning: document.querySelector("#spoilerWarning"),
-    spoilerContent: document.querySelector("#spoilerContent"),
+    characterContentSection: document.querySelector("#characterContentSection"),
+    modalContents: document.querySelector("#modalContents"),
     themeToggle: document.querySelector("#themeToggle")
   };
 
@@ -75,6 +73,70 @@
         `;
       })
       .join("");
+  }
+
+  function normalizeContents(character) {
+    if (Array.isArray(character.contents)) return character.contents;
+
+    // 이전 버전의 단일 spoiler 객체도 계속 표시합니다.
+    if (character.spoiler) {
+      return [{
+        id: "legacy-spoiler",
+        type: "비밀 설정",
+        title: character.spoiler.title,
+        content: [character.spoiler.content],
+        spoiler: true,
+        warning: character.spoiler.warning
+      }];
+    }
+
+    return [];
+  }
+
+  function contentParagraphs(content) {
+    const paragraphs = Array.isArray(content) ? content : [content];
+    return paragraphs
+      .filter(Boolean)
+      .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+      .join("");
+  }
+
+  function contentBlock(item, index) {
+    const isSpoiler = Boolean(item.spoiler);
+    const type = item.type || "추가 이야기";
+    const title = item.title || type;
+    const warning = item.warning || "스포일러가 포함되어 있습니다.";
+    const body = contentParagraphs(item.content || item.body || "");
+
+    if (isSpoiler) {
+      return `
+        <details class="content-box is-spoiler" data-content-index="${index}">
+          <summary>
+            <span class="content-icon" aria-hidden="true">⚠</span>
+            <span class="content-heading">
+              <small>${escapeHtml(type)}</small>
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(warning)}</span>
+            </span>
+            <span class="content-arrow" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content-body">${body}</div>
+        </details>
+      `;
+    }
+
+    return `
+      <article class="content-box is-public" data-content-index="${index}">
+        <header class="content-public-heading">
+          <span class="content-icon" aria-hidden="true">✦</span>
+          <span class="content-heading">
+            <small>${escapeHtml(type)}</small>
+            <strong>${escapeHtml(title)}</strong>
+          </span>
+        </header>
+        <div class="content-body">${body}</div>
+      </article>
+    `;
   }
 
   function characterCard(character, featured = false) {
@@ -196,15 +258,9 @@
       })
       .join("");
 
-    if (character.spoiler) {
-      els.spoilerBox.hidden = false;
-      els.spoilerBox.open = false;
-      els.spoilerTitle.textContent = character.spoiler.title;
-      els.spoilerWarning.textContent = character.spoiler.warning;
-      els.spoilerContent.textContent = character.spoiler.content;
-    } else {
-      els.spoilerBox.hidden = true;
-    }
+    const contents = normalizeContents(character);
+    els.characterContentSection.hidden = contents.length === 0;
+    els.modalContents.innerHTML = contents.map(contentBlock).join("");
 
     els.modal.showModal();
     document.body.classList.add("modal-open");
