@@ -111,9 +111,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "lyra-1.png",
-        "lyra-2.png",
-        "lyra-3.png"
+        "characters/lyra/01.png",
+        "characters/lyra/02.png",
+        "characters/lyra/03.png"
       ],
       "platforms": [
         {
@@ -178,9 +178,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "ian-1.png",
-        "ian-2.png",
-        "ian-3.png"
+        "characters/ian/01.png",
+        "characters/ian/02.png",
+        "characters/ian/03.png"
       ],
       "platforms": [
         {
@@ -224,9 +224,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "seoha-1.png",
-        "seoha-2.png",
-        "seoha-3.png"
+        "characters/seoha/01.png",
+        "characters/seoha/02.png",
+        "characters/seoha/03.png"
       ],
       "platforms": [
         {
@@ -267,9 +267,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "noah-1.png",
-        "noah-2.png",
-        "noah-3.png"
+        "characters/noah/01.png",
+        "characters/noah/02.png",
+        "characters/noah/03.png"
       ],
       "platforms": [
         {
@@ -313,9 +313,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "mireu-1.png",
-        "mireu-2.png",
-        "mireu-3.png"
+        "characters/mireu/01.png",
+        "characters/mireu/02.png",
+        "characters/mireu/03.png"
       ],
       "platforms": [
         {
@@ -360,9 +360,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "cassian-1.png",
-        "cassian-2.png",
-        "cassian-3.png"
+        "characters/cassian/01.png",
+        "characters/cassian/02.png",
+        "characters/cassian/03.png"
       ],
       "platforms": [
         {
@@ -403,9 +403,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "haejun-1.png",
-        "haejun-2.png",
-        "haejun-3.png"
+        "characters/haejun/01.png",
+        "characters/haejun/02.png",
+        "characters/haejun/03.png"
       ],
       "platforms": [
         {
@@ -449,9 +449,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "evelyn-1.png",
-        "evelyn-2.png",
-        "evelyn-3.png"
+        "characters/evelyn/01.png",
+        "characters/evelyn/02.png",
+        "characters/evelyn/03.png"
       ],
       "platforms": [
         {
@@ -492,9 +492,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "taeo-1.png",
-        "taeo-2.png",
-        "taeo-3.png"
+        "characters/taeo/01.png",
+        "characters/taeo/02.png",
+        "characters/taeo/03.png"
       ],
       "platforms": [
         {
@@ -539,9 +539,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "sable-1.png",
-        "sable-2.png",
-        "sable-3.png"
+        "characters/sable/01.png",
+        "characters/sable/02.png",
+        "characters/sable/03.png"
       ],
       "platforms": [
         {
