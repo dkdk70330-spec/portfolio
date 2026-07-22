@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI 채팅 캐릭터 제작자 포트폴리오 프로토타입" />
+  <title>별개의 서재 | AI 캐릭터 포트폴리오</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#characters">캐릭터 목록으로 건너뛰기</a>
+
+  <header class="hero" id="top">
+    <nav class="topbar" aria-label="주요 메뉴">
+      <a class="brand" href="#top" aria-label="홈으로 이동">
+        <span class="brand-mark">✦</span>
+        <span>별개의 서재</span>
+      </a>
+      <div class="topbar-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="밝은 테마로 변경">☀</button>
+        <a class="ghost-button" href="#characters">캐릭터 보기</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <section class="creator-card" aria-labelledby="creatorName">
+        <div class="creator-avatar" aria-hidden="true">별</div>
+        <div>
+          <p class="eyebrow">AI CHARACTER CREATOR</p>
+          <h1 id="creatorName">별가루 공방</h1>
+          <p class="creator-handle">@stardust_archive</p>
+          <p class="creator-bio">
+            다정한 파국과 오래 남는 대화를 만듭니다. 판타지, 미스터리, 현대 로맨스를 중심으로
+            여러 AI 채팅 플랫폼에서 캐릭터를 공개하고 있어요.
+          </p>
+          <div class="creator-links" aria-label="제작자 외부 링크">
+            <a href="https://x.com" target="_blank" rel="noreferrer">X / Twitter</a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://example.com" target="_blank" rel="noreferrer">공지 채널</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero-copy" aria-labelledby="heroTitle">
+        <p class="eyebrow">CHARACTER ARCHIVE · SEASON 01</p>
+        <h2 id="heroTitle">대화를 시작하면,<br />세계가 한 겹 열린다.</h2>
+        <p>
+          플랫폼과 장르를 넘나드는 캐릭터를 한곳에서 둘러보세요. 카드 안의 작은 표식은
+          이용 가능한 플랫폼을 뜻합니다.
+        </p>
+        <div class="hero-stats" aria-label="포트폴리오 요약">
+          <div><strong id="characterCount">10</strong><span>Characters</span></div>
+          <div><strong id="platformCount">4</strong><span>Platforms</span></div>
+          <div><strong id="genreCount">6</strong><span>Genres</span></div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main>
+    <section class="featured-section" aria-labelledby="featuredTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">FEATURED</p>
+          <h2 id="featuredTitle">먼저 만나볼 캐릭터</h2>
+        </div>
+        <p>제작자가 고른 입문 추천작입니다.</p>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <section class="archive-section" id="characters" aria-labelledby="archiveTitle">
+      <div class="section-heading archive-heading">
+        <div>
+          <p class="eyebrow">FULL ARCHIVE</p>
+          <h2 id="archiveTitle">캐릭터 아카이브</h2>
+        </div>
+        <p id="resultSummary" aria-live="polite"></p>
+      </div>
+
+      <div class="controls" aria-label="캐릭터 검색 및 필터">
+        <label class="search-box">
+          <span class="sr-only">캐릭터 검색</span>
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="이름, 소개, 태그로 검색" autocomplete="off" />
+        </label>
+
+        <div class="filter-row">
+          <div class="filter-group" aria-labelledby="genreFilterLabel">
+            <span class="filter-label" id="genreFilterLabel">장르</span>
+            <div class="chip-list" id="genreFilters"></div>
+          </div>
+          <div class="filter-group" aria-labelledby="platformFilterLabel">
+            <span class="filter-label" id="platformFilterLabel">플랫폼</span>
+            <div class="chip-list" id="platformFilters"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="character-grid" id="characterGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <span>◇</span>
+        <h3>조건에 맞는 캐릭터가 없어요.</h3>
+        <p>검색어나 필터를 조금 느슨하게 풀어보세요.</p>
+        <button class="solid-button" id="resetFilters" type="button">필터 초기화</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 별가루 공방. Prototype portfolio kit.</p>
+    <a href="#top">맨 위로 ↑</a>
+  </footer>
+
+  <dialog class="character-modal" id="characterModal" aria-labelledby="modalTitle">
+    <div class="modal-shell">
+      <button class="modal-close" id="modalClose" type="button" aria-label="캐릭터 상세 닫기">×</button>
+      <div class="modal-gallery">
+        <img id="modalMainImage" src="" alt="" />
+        <div class="gallery-thumbnails" id="galleryThumbnails"></div>
+      </div>
+      <article class="modal-content">
+        <div class="modal-kicker" id="modalKicker"></div>
+        <h2 id="modalTitle"></h2>
+        <p class="modal-summary" id="modalSummary"></p>
+        <div class="tag-list" id="modalTags"></div>
+        <div class="modal-description" id="modalDescription"></div>
+
+        <section class="platform-panel" aria-labelledby="platformHeading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">START A CHAT</p>
+              <h3 id="platformHeading">이 캐릭터와 대화하기</h3>
+            </div>
+          </div>
+          <div class="platform-links" id="modalPlatforms"></div>
+        </section>
+
+        <details class="spoiler-box" id="spoilerBox">
+          <summary>
+            <span>⚠</span>
+            <span>
+              <strong id="spoilerTitle">스포일러와 후일담</strong>
+              <small id="spoilerWarning"></small>
+            </span>
+            <span class="spoiler-arrow">⌄</span>
+          </summary>
+          <div class="spoiler-content" id="spoilerContent"></div>
+        </details>
+      </article>
+    </div>
+  </dialog>
+
+  <script src="./assets/data.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
