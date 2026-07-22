@@ -1107,3 +1107,146 @@ main {
     font-size: .76rem;
   }
 }
+
+/* -------------------------------------------------
+   Compact responsive world archive
+   세계관 아카이브만 수정
+   ------------------------------------------------- */
+.world-grid {
+  min-width: 0;
+}
+
+/* 기존 2열 전환 대신 대표 캐릭터처럼 3열을 유지한다. */
+@media (max-width: 1040px) {
+  .world-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .75rem;
+  }
+
+  .world-card-button {
+    border-radius: 18px;
+  }
+
+  .world-card-body {
+    padding: .9rem;
+  }
+
+  .world-card-body h3 {
+    overflow: hidden;
+    margin-top: .35rem;
+    font-size: 1.18rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .world-card-body > p {
+    display: -webkit-box;
+    min-height: 0;
+    margin: .3rem 0 .7rem;
+    overflow: hidden;
+    font-size: .76rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .world-card-tags span {
+    padding: .15rem .4rem;
+    font-size: .61rem;
+  }
+
+  .world-card-tags span:nth-child(n + 3) {
+    display: none;
+  }
+
+  .world-face {
+    width: 31px;
+    height: 31px;
+  }
+}
+
+/* 모바일에서도 1열로 늘이지 않고 3열 소형 카드로 압축한다. */
+@media (max-width: 760px) {
+  .world-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .55rem;
+  }
+
+  .world-card-button {
+    border-radius: 15px;
+  }
+
+  .world-card-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .world-card-body {
+    padding: .65rem;
+  }
+
+  .world-card-meta {
+    font-size: .56rem;
+    letter-spacing: .035em;
+  }
+
+  .world-card-body h3 {
+    display: -webkit-box;
+    min-height: 2.45em;
+    margin-top: .3rem;
+    overflow: hidden;
+    font-size: .92rem;
+    line-height: 1.22;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .world-card-body > p,
+  .world-card-tags {
+    display: none;
+  }
+
+  .world-face-stack {
+    left: .55rem;
+    bottom: .55rem;
+  }
+
+  .world-face {
+    width: 25px;
+    height: 25px;
+    border-width: 1px;
+  }
+
+  .world-face:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .world-grid {
+    gap: .42rem;
+  }
+
+  .world-card-image {
+    aspect-ratio: 1;
+  }
+
+  .world-card-body {
+    padding: .52rem;
+  }
+
+  .world-card-meta {
+    font-size: .49rem;
+  }
+
+  .world-card-body h3 {
+    min-height: 2.4em;
+    font-size: .78rem;
+  }
+
+  .world-face-stack {
+    display: none;
+  }
+}
+
