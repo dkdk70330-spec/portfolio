@@ -2,9 +2,9 @@
   const data = window.PORTFOLIO_DATA;
   const state = {
     query: "",
-    genre: "전체",
-    platform: "전체",
-    world: "전체",
+    genre: new Set(),
+    platform: new Set(),
+    world: new Set(),
     worldExpanded: false,
     charactersExpanded: false
   };
@@ -354,9 +354,9 @@
   function hasActiveCharacterFilters() {
     return Boolean(
       state.query.trim()
-      || state.genre !== "전체"
-      || state.platform !== "전체"
-      || state.world !== "전체"
+      || state.genre.size > 0
+      || state.platform.size > 0
+      || state.world.size > 0
     );
   }
 
@@ -445,19 +445,39 @@
     ];
   }
 
+  function selectedFilters(group) {
+    return state[group];
+  }
+
+  function isFilterSelected(group, value) {
+    const selected = selectedFilters(group);
+    return value === "전체" ? selected.size === 0 : selected.has(value);
+  }
+
+  function toggleFilter(group, value) {
+    const selected = selectedFilters(group);
+
+    if (value === "전체") {
+      selected.clear();
+      return;
+    }
+
+    if (selected.has(value)) selected.delete(value);
+    else selected.add(value);
+  }
+
   function compactFilterOptions(group) {
     const options = filterOptions(group);
     const allOption = options[0];
     const remaining = options.slice(1);
-    const activeValue = state[group];
-    const visible = remaining.slice(0, FILTER_PREVIEW_LIMIT);
+    const selected = selectedFilters(group);
 
-    if (activeValue !== "전체" && !visible.some((option) => option.value === activeValue)) {
-      const activeOption = remaining.find((option) => option.value === activeValue);
-      if (activeOption) {
-        if (visible.length >= FILTER_PREVIEW_LIMIT) visible.pop();
-        visible.push(activeOption);
-      }
+    // 선택된 항목은 기본 행에서 숨기지 않는다. 나머지 자리는 사용 빈도순으로 채운다.
+    const visible = remaining.filter((option) => selected.has(option.value));
+
+    for (const option of remaining) {
+      if (visible.length >= FILTER_PREVIEW_LIMIT) break;
+      if (!visible.some((item) => item.value === option.value)) visible.push(option);
     }
 
     return {
@@ -469,7 +489,7 @@
   function renderFilterRow(container, group) {
     const { visible, hiddenCount } = compactFilterOptions(group);
     container.innerHTML = visible
-      .map((option) => filterButton(option.label, group, state[group] === option.value, option.value))
+      .map((option) => filterButton(option.label, group, isFilterSelected(group, option.value), option.value))
       .join("");
 
     if (hiddenCount > 0) {
@@ -501,7 +521,7 @@
       .map((option) => filterButton(
         option.label,
         activePickerGroup,
-        state[activePickerGroup] === option.value,
+        isFilterSelected(activePickerGroup, option.value),
         option.value,
         option.count,
         true
@@ -544,10 +564,16 @@
       ].join(" ").toLocaleLowerCase("ko");
 
       const queryMatch = !normalizedQuery || searchable.includes(normalizedQuery);
-      const genreMatch = state.genre === "전체" || character.genres.includes(state.genre);
-      const platformMatch = state.platform === "전체" || character.platforms.some((item) => getPlatform(item).name === state.platform);
-      const worldMatch = state.world === "전체"
-        || (state.world === "__independent__" ? !character.worldId : character.worldId === state.world);
+      const genreMatch = state.genre.size === 0
+        || character.genres.some((genre) => state.genre.has(genre));
+      const platformMatch = state.platform.size === 0
+        || character.platforms.some((item) => state.platform.has(getPlatform(item).name));
+      const worldMatch = state.world.size === 0
+        || [...state.world].some((worldId) =>
+          worldId === "__independent__" ? !character.worldId : character.worldId === worldId
+        );
+
+      // 같은 분류 안에서는 OR, 서로 다른 분류 사이에서는 AND로 결합한다.
       return queryMatch && genreMatch && platformMatch && worldMatch;
     });
   }
@@ -819,9 +845,11 @@
 
     const filter = event.target.closest("[data-filter-group]");
     if (filter) {
-      state[filter.dataset.filterGroup] = filter.dataset.filterValue;
+      toggleFilter(filter.dataset.filterGroup, filter.dataset.filterValue);
       renderAll();
-      if (els.filterPicker.open) closeFilterPicker();
+
+      // 더보기 창에서는 여러 항목을 연속해서 고를 수 있도록 창을 유지한다.
+      if (els.filterPicker.open) renderFilterPicker();
       return;
     }
 
@@ -841,9 +869,9 @@
 
   els.resetFilters.addEventListener("click", () => {
     state.query = "";
-    state.genre = "전체";
-    state.platform = "전체";
-    state.world = "전체";
+    state.genre.clear();
+    state.platform.clear();
+    state.world.clear();
     els.searchInput.value = "";
     renderAll();
   });
