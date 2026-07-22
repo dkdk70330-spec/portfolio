@@ -3,7 +3,8 @@
   const state = {
     query: "",
     genre: "전체",
-    platform: "전체"
+    platform: "전체",
+    world: "전체"
   };
 
   const els = {
@@ -12,6 +13,7 @@
     characterGrid: document.querySelector("#characterGrid"),
     genreFilters: document.querySelector("#genreFilters"),
     platformFilters: document.querySelector("#platformFilters"),
+    worldFilters: document.querySelector("#worldFilters"),
     searchInput: document.querySelector("#searchInput"),
     resultSummary: document.querySelector("#resultSummary"),
     emptyState: document.querySelector("#emptyState"),
@@ -60,7 +62,7 @@
     return platformCatalog.get(id) || {
       id,
       name: platformLink.name || id,
-      icon: platformLink.icon || "platforms/default.svg"
+      icon: platformLink.icon || "platforms/default.png"
     };
   }
 
@@ -231,8 +233,8 @@
     if (section) section.hidden = worlds.length === 0;
   }
 
-  function filterButton(label, group, active) {
-    return `<button class="filter-chip ${active ? "active" : ""}" type="button" data-filter-group="${group}" data-filter-value="${escapeHtml(label)}">${escapeHtml(label)}</button>`;
+  function filterButton(label, group, active, value = label) {
+    return `<button class="filter-chip ${active ? "active" : ""}" type="button" aria-pressed="${active}" data-filter-group="${group}" data-filter-value="${escapeHtml(value)}">${escapeHtml(label)}</button>`;
   }
 
   function renderFilters() {
@@ -241,6 +243,16 @@
       .join("");
     els.platformFilters.innerHTML = ["전체", ...platforms]
       .map((platform) => filterButton(platform, "platform", state.platform === platform))
+      .join("");
+
+    const worldOptions = [
+      { label: "전체", value: "전체" },
+      ...(data.worlds || []).map((world) => ({ label: world.name, value: world.id })),
+      { label: "독립 캐릭터", value: "__independent__" }
+    ];
+
+    els.worldFilters.innerHTML = worldOptions
+      .map((world) => filterButton(world.label, "world", state.world === world.value, world.value))
       .join("");
   }
 
@@ -261,7 +273,9 @@
       const queryMatch = !normalizedQuery || searchable.includes(normalizedQuery);
       const genreMatch = state.genre === "전체" || character.genres.includes(state.genre);
       const platformMatch = state.platform === "전체" || character.platforms.some((item) => getPlatform(item).name === state.platform);
-      return queryMatch && genreMatch && platformMatch;
+      const worldMatch = state.world === "전체"
+        || (state.world === "__independent__" ? !character.worldId : character.worldId === state.world);
+      return queryMatch && genreMatch && platformMatch && worldMatch;
     });
   }
 
@@ -438,6 +452,7 @@
     state.query = "";
     state.genre = "전체";
     state.platform = "전체";
+    state.world = "전체";
     els.searchInput.value = "";
     renderAll();
   });
