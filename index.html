@@ -18,25 +18,28 @@
       </a>
       <div class="topbar-actions">
         <button class="icon-button" id="themeToggle" type="button" aria-label="밝은 테마로 변경">☀</button>
-        <a class="ghost-button" href="#characters">캐릭터 보기</a>
+        <a class="ghost-button" href="#characters">전체 캐릭터</a>
       </div>
     </nav>
 
-    <div class="hero-grid">
-      <section class="creator-card" aria-labelledby="creatorName">
+    <div class="hero-inner">
+      <section class="creator-summary" aria-labelledby="creatorName">
         <div class="creator-avatar">
           <img id="creatorAvatar" src="" alt="" hidden />
           <span id="creatorAvatarFallback" aria-hidden="true">별</span>
         </div>
 
         <div class="creator-copy">
+          <div class="creator-title-line">
+            <div>
+              <h1 id="creatorName">별가루 공방</h1>
+              <p class="creator-handle" id="creatorHandle">@stardust_archive</p>
+            </div>
+            <div class="creator-links" id="creatorLinks" aria-label="제작자 외부 링크"></div>
+          </div>
           <p class="creator-manifesto" id="siteDescription">다정한 파국과 오래 남는 관계를 수집하는 AI 캐릭터 아카이브</p>
-          <h1 id="creatorName">별가루 공방</h1>
-          <p class="creator-handle" id="creatorHandle">@stardust_archive</p>
           <div class="creator-bio" id="creatorBio"></div>
-          <div class="creator-links" id="creatorLinks" aria-label="제작자 외부 링크"></div>
-
-          <div class="hero-stats" aria-label="포트폴리오 요약">
+          <div class="hero-stats" aria-label="아카이브 요약">
             <div><strong id="characterCount">10</strong><span>캐릭터</span></div>
             <div><strong id="platformCount">4</strong><span>플랫폼</span></div>
             <div><strong id="genreCount">6</strong><span>장르</span></div>
@@ -44,32 +47,23 @@
         </div>
       </section>
 
-      <aside class="hero-spotlight" id="heroSpotlight" aria-labelledby="heroSpotlightTitle"></aside>
+      <section class="featured-shelf" id="featuredSection" aria-labelledby="featuredTitle">
+        <div class="shelf-heading">
+          <div>
+            <p class="eyebrow">FEATURED CHARACTERS</p>
+            <h2 id="featuredTitle">대표 캐릭터</h2>
+          </div>
+          <div class="shelf-heading-actions">
+            <p>처음 둘러보기 좋은 세 명</p>
+            <a href="#characters">전체 보기 <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="featured-grid" id="featuredGrid"></div>
+      </section>
     </div>
   </header>
 
   <main>
-    <section class="featured-section" id="featuredSection" aria-labelledby="featuredTitle">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">FEATURED</p>
-          <h2 id="featuredTitle">이어 만나볼 캐릭터</h2>
-        </div>
-        <p>입문 캐릭터 다음으로 둘러보기 좋은 추천작입니다.</p>
-      </div>
-      <div class="featured-grid" id="featuredGrid"></div>
-    </section>
-
-    <section class="world-section" id="worlds" aria-labelledby="worldArchiveTitle">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">SHARED WORLDS</p>
-          <h2 id="worldArchiveTitle">세계관 아카이브</h2>
-        </div>
-        <p>서로의 이야기가 이어지는 세계를 먼저 둘러보세요.</p>
-      </div>
-      <div class="world-grid" id="worldGrid"></div>
-    </section>
 
     <section class="archive-section" id="characters" aria-labelledby="archiveTitle">
       <div class="section-heading archive-heading">
@@ -110,6 +104,17 @@
         <p>검색어나 필터를 조금 느슨하게 풀어보세요.</p>
         <button class="solid-button" id="resetFilters" type="button">필터 초기화</button>
       </div>
+    </section>
+
+    <section class="world-section" id="worlds" aria-labelledby="worldArchiveTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SHARED WORLDS</p>
+          <h2 id="worldArchiveTitle">세계관 아카이브</h2>
+        </div>
+        <p>서로의 이야기가 이어지는 세계를 먼저 둘러보세요.</p>
+      </div>
+      <div class="world-grid" id="worldGrid"></div>
     </section>
   </main>
 

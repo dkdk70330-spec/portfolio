@@ -16,7 +16,6 @@
     creatorHandle: document.querySelector("#creatorHandle"),
     creatorBio: document.querySelector("#creatorBio"),
     creatorLinks: document.querySelector("#creatorLinks"),
-    heroSpotlight: document.querySelector("#heroSpotlight"),
     featuredSection: document.querySelector("#featuredSection"),
     featuredGrid: document.querySelector("#featuredGrid"),
     worldGrid: document.querySelector("#worldGrid"),
@@ -67,7 +66,6 @@
   const platformCatalog = new Map((data.platforms || []).map((platform) => [platform.id, platform]));
   const worldCatalog = new Map((data.worlds || []).map((world) => [world.id, world]));
   const profileLinkCatalog = new Map((data.profileLinkServices || []).map((service) => [service.id, service]));
-  const spotlightCharacter = data.characters.find((character) => character.featured) || data.characters[0] || null;
 
   function getPlatform(platformLink) {
     const id = typeof platformLink === "string" ? platformLink : platformLink.id;
@@ -289,39 +287,12 @@
     `;
   }
 
-  function renderHeroSpotlight() {
-    if (!els.heroSpotlight || !spotlightCharacter) {
-      if (els.heroSpotlight) els.heroSpotlight.hidden = true;
-      return;
-    }
-
-    const world = getWorld(spotlightCharacter.worldId);
-    const genreTags = (spotlightCharacter.genres || []).slice(0, 2)
-      .map((genre) => `<span>${escapeHtml(genre)}</span>`)
-      .join("");
-
-    els.heroSpotlight.innerHTML = `
-      <div class="spotlight-image-wrap">
-        <img class="spotlight-image" src="${imagePath(spotlightCharacter.images[0])}" alt="${escapeHtml(spotlightCharacter.name)} 대표 이미지" />
-        <div class="spotlight-platforms" aria-label="이용 가능 플랫폼">${platformDots(spotlightCharacter)}</div>
-      </div>
-      <div class="spotlight-content">
-        <p class="spotlight-eyebrow">처음 만날 캐릭터</p>
-        <div class="spotlight-tags">${genreTags}</div>
-        <h2 id="heroSpotlightTitle">${escapeHtml(spotlightCharacter.name)}</h2>
-        <p>${escapeHtml(spotlightCharacter.subtitle)}</p>
-        ${world ? `<span class="spotlight-world">${escapeHtml(world.name)} 세계관</span>` : ""}
-        <div class="spotlight-actions">
-          <button class="spotlight-primary" type="button" data-character-id="${escapeHtml(spotlightCharacter.id)}">캐릭터 보기 <b aria-hidden="true">↗</b></button>
-          ${world ? `<button class="spotlight-secondary" type="button" data-world-id="${escapeHtml(world.id)}">세계 구경하기</button>` : ""}
-        </div>
-      </div>
-    `;
-  }
-
   function renderFeatured() {
-    const featuredCharacters = data.characters
-      .filter((character) => character.featured && character.id !== spotlightCharacter?.id);
+    const preferred = data.characters.filter((character) => character.featured);
+    const fallback = data.characters.filter((character) => !character.featured);
+    const featuredCharacters = [...preferred, ...fallback]
+      .filter((character, index, list) => list.findIndex((item) => item.id === character.id) === index)
+      .slice(0, 3);
 
     els.featuredGrid.innerHTML = featuredCharacters
       .map((character) => characterCard(character, true))
@@ -601,7 +572,6 @@
   });
 
   renderSiteAndCreator();
-  renderHeroSpotlight();
   renderFeatured();
   renderWorlds();
   renderAll();
