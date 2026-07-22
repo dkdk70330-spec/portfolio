@@ -841,18 +841,23 @@ main {
 }
 
 @media (max-width: 980px) {
+  /* 대표 캐릭터는 가로 스크롤이 아니라 3열 반응형 그리드를 유지한다. */
   .featured-shelf .featured-grid {
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(310px, 72vw);
-    grid-template-columns: none;
-    gap: .8rem;
-    overflow-x: auto;
-    padding: .15rem .15rem .75rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .7rem;
+    overflow: visible;
+    padding: 0;
   }
-  .featured-shelf .featured-card {
-    scroll-snap-align: start;
+  .featured-shelf .featured-card .card-button {
+    display: block;
+    min-height: 0;
+  }
+  .featured-shelf .featured-card .card-image-wrap {
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+  }
+  .featured-shelf .featured-card .card-body {
+    padding: .9rem;
   }
 }
 
@@ -909,14 +914,44 @@ main {
     display: none;
   }
   .featured-shelf .featured-grid {
-    grid-auto-columns: minmax(285px, 86vw);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .55rem;
   }
   .featured-shelf .featured-card .card-button {
-    grid-template-columns: 42% 58%;
-    min-height: 190px;
+    display: block;
+    min-height: 0;
   }
   .featured-shelf .featured-card .card-image-wrap {
-    min-height: 190px;
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+  }
+  .featured-shelf .featured-card .card-body {
+    padding: .72rem;
+  }
+  .featured-shelf .featured-card .card-tags {
+    margin-bottom: .42rem;
+  }
+  .featured-shelf .featured-card .card-tags span:nth-child(n + 2) {
+    display: none;
+  }
+  .featured-shelf .featured-card .card-body h3 {
+    overflow: hidden;
+    font-size: .98rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .featured-shelf .featured-card .card-body p {
+    margin: .25rem 0 .55rem;
+    font-size: .68rem;
+    -webkit-line-clamp: 2;
+  }
+  .featured-shelf .featured-card .card-more {
+    font-size: .65rem;
+  }
+  .featured-shelf .featured-card .platform-dot {
+    width: 21px;
+    height: 21px;
+    border-radius: 7px;
   }
   main {
     padding-block: 3rem;
@@ -955,7 +990,28 @@ main {
     padding-top: 1.65rem;
   }
   .featured-shelf .featured-grid {
-    grid-auto-columns: minmax(270px, 88vw);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .42rem;
+  }
+  .featured-shelf .featured-card .card-body {
+    padding: .58rem;
+  }
+  .featured-shelf .featured-card .card-tags,
+  .featured-shelf .featured-card .card-body p,
+  .featured-shelf .featured-card .card-more {
+    display: none;
+  }
+  .featured-shelf .featured-card .card-body h3 {
+    font-size: .82rem;
+    line-height: 1.25;
+  }
+  .featured-shelf .featured-card .card-platforms {
+    right: .35rem;
+    bottom: .35rem;
+  }
+  .featured-shelf .featured-card .platform-dot {
+    width: 19px;
+    height: 19px;
   }
 }
 
