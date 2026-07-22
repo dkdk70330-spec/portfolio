@@ -7,22 +7,22 @@ window.PORTFOLIO_DATA = {
     {
       "id": "bloom",
       "name": "블룸",
-      "icon": "platforms/bloom.svg"
+      "icon": "platforms/bloom.png"
     },
     {
       "id": "caveduck",
       "name": "케이브덕",
-      "icon": "platforms/caveduck.svg"
+      "icon": "platforms/caveduck.png"
     },
     {
       "id": "rofan",
       "name": "로판",
-      "icon": "platforms/rofan.svg"
+      "icon": "platforms/rofan.png"
     },
     {
       "id": "tingle",
       "name": "팅글",
-      "icon": "platforms/tingle.svg"
+      "icon": "platforms/tingle.png"
     }
   ],
   "characters": [
@@ -45,9 +45,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "lyra-1.svg",
-        "lyra-2.svg",
-        "lyra-3.svg"
+        "lyra-1.png",
+        "lyra-2.png",
+        "lyra-3.png"
       ],
       "platforms": [
         {
@@ -112,9 +112,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "ian-1.svg",
-        "ian-2.svg",
-        "ian-3.svg"
+        "ian-1.png",
+        "ian-2.png",
+        "ian-3.png"
       ],
       "platforms": [
         {
@@ -158,9 +158,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "seoha-1.svg",
-        "seoha-2.svg",
-        "seoha-3.svg"
+        "seoha-1.png",
+        "seoha-2.png",
+        "seoha-3.png"
       ],
       "platforms": [
         {
@@ -200,9 +200,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": true,
       "images": [
-        "noah-1.svg",
-        "noah-2.svg",
-        "noah-3.svg"
+        "noah-1.png",
+        "noah-2.png",
+        "noah-3.png"
       ],
       "platforms": [
         {
@@ -246,9 +246,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "mireu-1.svg",
-        "mireu-2.svg",
-        "mireu-3.svg"
+        "mireu-1.png",
+        "mireu-2.png",
+        "mireu-3.png"
       ],
       "platforms": [
         {
@@ -292,9 +292,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "cassian-1.svg",
-        "cassian-2.svg",
-        "cassian-3.svg"
+        "cassian-1.png",
+        "cassian-2.png",
+        "cassian-3.png"
       ],
       "platforms": [
         {
@@ -334,9 +334,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "haejun-1.svg",
-        "haejun-2.svg",
-        "haejun-3.svg"
+        "haejun-1.png",
+        "haejun-2.png",
+        "haejun-3.png"
       ],
       "platforms": [
         {
@@ -380,9 +380,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "evelyn-1.svg",
-        "evelyn-2.svg",
-        "evelyn-3.svg"
+        "evelyn-1.png",
+        "evelyn-2.png",
+        "evelyn-3.png"
       ],
       "platforms": [
         {
@@ -422,9 +422,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "taeo-1.svg",
-        "taeo-2.svg",
-        "taeo-3.svg"
+        "taeo-1.png",
+        "taeo-2.png",
+        "taeo-3.png"
       ],
       "platforms": [
         {
@@ -468,9 +468,9 @@ window.PORTFOLIO_DATA = {
       ],
       "featured": false,
       "images": [
-        "sable-1.svg",
-        "sable-2.svg",
-        "sable-3.svg"
+        "sable-1.png",
+        "sable-2.png",
+        "sable-3.png"
       ],
       "platforms": [
         {
