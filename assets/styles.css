@@ -857,3 +857,95 @@ main {
   }
 }
 
+
+/* -------------------------------------------------
+   Two-row archive reveal controls
+   ------------------------------------------------- */
+.world-section,
+.archive-section {
+  scroll-margin-top: 1rem;
+}
+
+.archive-toggle-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.25rem;
+  padding-top: .35rem;
+}
+
+.archive-toggle-wrap::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + .35rem);
+  height: 54px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
+
+.archive-toggle {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-width: 168px;
+  padding: .72rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .14);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 850;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
+}
+
+.archive-toggle:hover,
+.archive-toggle:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
+.archive-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  outline-offset: 3px;
+}
+
+.archive-toggle b {
+  color: var(--accent);
+  font-size: .95rem;
+  transition: transform .2s ease;
+}
+
+.archive-toggle.is-expanded b {
+  transform: rotate(180deg);
+}
+
+.archive-toggle-wrap[hidden] {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .world-section,
+  .archive-section {
+    margin-bottom: 4.25rem;
+  }
+
+  .archive-toggle-wrap {
+    margin-top: 1rem;
+  }
+
+  .archive-toggle {
+    min-width: 154px;
+    padding: .68rem .9rem;
+    font-size: .76rem;
+  }
+}

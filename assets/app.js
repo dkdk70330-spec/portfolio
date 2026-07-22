@@ -4,7 +4,9 @@
     query: "",
     genre: "전체",
     platform: "전체",
-    world: "전체"
+    world: "전체",
+    worldExpanded: false,
+    charactersExpanded: false
   };
 
   const els = {
@@ -19,7 +21,11 @@
     featuredSection: document.querySelector("#featuredSection"),
     featuredGrid: document.querySelector("#featuredGrid"),
     worldGrid: document.querySelector("#worldGrid"),
+    worldToggleWrap: document.querySelector("#worldToggleWrap"),
+    worldToggle: document.querySelector("#worldToggle"),
     characterGrid: document.querySelector("#characterGrid"),
+    characterToggleWrap: document.querySelector("#characterToggleWrap"),
+    characterToggle: document.querySelector("#characterToggle"),
     genreFilters: document.querySelector("#genreFilters"),
     platformFilters: document.querySelector("#platformFilters"),
     worldFilters: document.querySelector("#worldFilters"),
@@ -287,6 +293,66 @@
     `;
   }
 
+  function gridColumnCount(grid) {
+    if (!grid) return 1;
+    const template = getComputedStyle(grid).gridTemplateColumns;
+    if (!template || template === "none") return 1;
+    return Math.max(1, template.split(/\s+/).filter(Boolean).length);
+  }
+
+  function updateArchiveToggle({ grid, wrap, button, expanded, forceExpanded = false, noun }) {
+    if (!grid || !wrap || !button) return;
+
+    const items = [...grid.children];
+    const visibleLimit = gridColumnCount(grid) * 2;
+    const canCollapse = !forceExpanded && items.length > visibleLimit;
+    const isExpanded = forceExpanded || expanded || !canCollapse;
+
+    items.forEach((item, index) => {
+      item.hidden = !isExpanded && index >= visibleLimit;
+    });
+
+    wrap.hidden = !canCollapse;
+    button.setAttribute("aria-expanded", String(isExpanded));
+    button.classList.toggle("is-expanded", isExpanded);
+
+    const label = button.querySelector("span");
+    if (label) {
+      const hiddenCount = Math.max(0, items.length - visibleLimit);
+      label.textContent = isExpanded ? `${noun} 접기` : `${noun} 더보기 +${hiddenCount}`;
+    }
+  }
+
+  function hasActiveCharacterFilters() {
+    return Boolean(
+      state.query.trim()
+      || state.genre !== "전체"
+      || state.platform !== "전체"
+      || state.world !== "전체"
+    );
+  }
+
+  function updateWorldArchiveLimit() {
+    updateArchiveToggle({
+      grid: els.worldGrid,
+      wrap: els.worldToggleWrap,
+      button: els.worldToggle,
+      expanded: state.worldExpanded,
+      noun: "세계관"
+    });
+  }
+
+  function updateCharacterArchiveLimit() {
+    updateArchiveToggle({
+      grid: els.characterGrid,
+      wrap: els.characterToggleWrap,
+      button: els.characterToggle,
+      expanded: state.charactersExpanded,
+      forceExpanded: hasActiveCharacterFilters(),
+      noun: "캐릭터"
+    });
+  }
+
   function renderFeatured() {
     const preferred = data.characters.filter((character) => character.featured);
     const fallback = data.characters.filter((character) => !character.featured);
@@ -307,6 +373,7 @@
     els.worldGrid.innerHTML = worlds.map(worldCard).join("");
     const section = els.worldGrid.closest(".world-section");
     if (section) section.hidden = worlds.length === 0;
+    updateWorldArchiveLimit();
   }
 
   function filterButton(label, group, active, value = label) {
@@ -361,6 +428,7 @@
     els.resultSummary.textContent = `총 ${data.characters.length}명 중 ${characters.length}명 표시`;
     els.emptyState.hidden = characters.length !== 0;
     els.characterGrid.hidden = characters.length === 0;
+    updateCharacterArchiveLimit();
   }
 
   function renderAll() {
@@ -531,6 +599,31 @@
     state.world = "전체";
     els.searchInput.value = "";
     renderAll();
+  });
+
+  els.worldToggle?.addEventListener("click", () => {
+    state.worldExpanded = !state.worldExpanded;
+    updateWorldArchiveLimit();
+    if (!state.worldExpanded) {
+      document.querySelector("#worlds")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  els.characterToggle?.addEventListener("click", () => {
+    state.charactersExpanded = !state.charactersExpanded;
+    updateCharacterArchiveLimit();
+    if (!state.charactersExpanded) {
+      document.querySelector("#characters")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  let archiveResizeFrame = 0;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(archiveResizeFrame);
+    archiveResizeFrame = requestAnimationFrame(() => {
+      updateWorldArchiveLimit();
+      updateCharacterArchiveLimit();
+    });
   });
 
   els.modalClose.addEventListener("click", closeCharacterModal);
