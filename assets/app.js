@@ -29,6 +29,12 @@
     genreFilters: document.querySelector("#genreFilters"),
     platformFilters: document.querySelector("#platformFilters"),
     worldFilters: document.querySelector("#worldFilters"),
+    filterPicker: document.querySelector("#filterPicker"),
+    filterPickerTitle: document.querySelector("#filterPickerTitle"),
+    filterPickerClose: document.querySelector("#filterPickerClose"),
+    filterPickerSearch: document.querySelector("#filterPickerSearch"),
+    filterPickerOptions: document.querySelector("#filterPickerOptions"),
+    filterPickerEmpty: document.querySelector("#filterPickerEmpty"),
     searchInput: document.querySelector("#searchInput"),
     resultSummary: document.querySelector("#resultSummary"),
     emptyState: document.querySelector("#emptyState"),
@@ -68,7 +74,6 @@
   };
 
   const imagePath = (file) => `./images/${file}`;
-  const unique = (items) => [...new Set(items)].sort((a, b) => a.localeCompare(b, "ko"));
   const platformCatalog = new Map((data.platforms || []).map((platform) => [platform.id, platform]));
   const worldCatalog = new Map((data.worlds || []).map((world) => [world.id, world]));
   const profileLinkCatalog = new Map((data.profileLinkServices || []).map((service) => [service.id, service]));
@@ -91,8 +96,31 @@
     return data.characters.filter((character) => character.worldId === worldId);
   }
 
-  const genres = unique(data.characters.flatMap((character) => character.genres));
-  const platforms = unique(data.characters.flatMap((character) => character.platforms.map((item) => getPlatform(item).name)));
+  function usageEntries(values) {
+    const counts = new Map();
+    values.forEach((value) => {
+      if (!value) return;
+      counts.set(value, (counts.get(value) || 0) + 1);
+    });
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ko"));
+  }
+
+  const genreUsage = usageEntries(data.characters.flatMap((character) => character.genres || []));
+  const platformUsage = usageEntries(
+    data.characters.flatMap((character) => (character.platforms || []).map((item) => getPlatform(item).name))
+  );
+  const worldUsage = usageEntries(data.characters.map((character) => character.worldId).filter(Boolean));
+
+  const genres = genreUsage.map(([name]) => name);
+  const platforms = platformUsage.map(([name]) => name);
+  const usedWorlds = worldUsage
+    .map(([id, count]) => {
+      const world = getWorld(id);
+      return world ? { ...world, usageCount: count } : null;
+    })
+    .filter(Boolean);
+  const independentCount = data.characters.filter((character) => !character.worldId).length;
 
   els.characterCount.textContent = data.characters.length;
   els.platformCount.textContent = platforms.length;
@@ -368,35 +396,137 @@
   }
 
   function renderWorlds() {
-    const worlds = data.worlds || [];
     if (!els.worldGrid) return;
-    els.worldGrid.innerHTML = worlds.map(worldCard).join("");
+    els.worldGrid.innerHTML = usedWorlds.map(worldCard).join("");
     const section = els.worldGrid.closest(".world-section");
-    if (section) section.hidden = worlds.length === 0;
+    if (section) section.hidden = usedWorlds.length === 0;
     updateWorldArchiveLimit();
   }
 
-  function filterButton(label, group, active, value = label) {
-    return `<button class="filter-chip ${active ? "active" : ""}" type="button" aria-pressed="${active}" data-filter-group="${group}" data-filter-value="${escapeHtml(value)}">${escapeHtml(label)}</button>`;
+  const FILTER_PREVIEW_LIMIT = 4;
+  let activePickerGroup = null;
+  let pickerQuery = "";
+
+  function filterButton(label, group, active, value = label, count = null, picker = false) {
+    const countMarkup = picker && Number.isFinite(count)
+      ? `<small>${count}</small>`
+      : "";
+    return `<button class="filter-chip ${picker ? "filter-chip--picker" : ""} ${active ? "active" : ""}" type="button" aria-pressed="${active}" data-filter-group="${group}" data-filter-value="${escapeHtml(value)}"><span>${escapeHtml(label)}</span>${countMarkup}</button>`;
+  }
+
+  function filterOptions(group) {
+    if (group === "genre") {
+      return [
+        { label: "전체", value: "전체", count: data.characters.length },
+        ...genreUsage.map(([name, count]) => ({ label: name, value: name, count }))
+      ];
+    }
+
+    if (group === "platform") {
+      return [
+        { label: "전체", value: "전체", count: data.characters.length },
+        ...platformUsage.map(([name, count]) => ({ label: name, value: name, count }))
+      ];
+    }
+
+    const worlds = usedWorlds.map((world) => ({
+      label: world.name,
+      value: world.id,
+      count: world.usageCount
+    }));
+
+    if (independentCount > 0) {
+      worlds.push({ label: "독립 캐릭터", value: "__independent__", count: independentCount });
+    }
+
+    return [
+      { label: "전체", value: "전체", count: data.characters.length },
+      ...worlds
+    ];
+  }
+
+  function compactFilterOptions(group) {
+    const options = filterOptions(group);
+    const allOption = options[0];
+    const remaining = options.slice(1);
+    const activeValue = state[group];
+    const visible = remaining.slice(0, FILTER_PREVIEW_LIMIT);
+
+    if (activeValue !== "전체" && !visible.some((option) => option.value === activeValue)) {
+      const activeOption = remaining.find((option) => option.value === activeValue);
+      if (activeOption) {
+        if (visible.length >= FILTER_PREVIEW_LIMIT) visible.pop();
+        visible.push(activeOption);
+      }
+    }
+
+    return {
+      visible: [allOption, ...visible],
+      hiddenCount: Math.max(0, remaining.length - visible.length)
+    };
+  }
+
+  function renderFilterRow(container, group) {
+    const { visible, hiddenCount } = compactFilterOptions(group);
+    container.innerHTML = visible
+      .map((option) => filterButton(option.label, group, state[group] === option.value, option.value))
+      .join("");
+
+    if (hiddenCount > 0) {
+      container.insertAdjacentHTML(
+        "beforeend",
+        `<button class="filter-more" type="button" data-filter-more="${group}" aria-haspopup="dialog">더보기 <b>+${hiddenCount}</b></button>`
+      );
+    }
   }
 
   function renderFilters() {
-    els.genreFilters.innerHTML = ["전체", ...genres]
-      .map((genre) => filterButton(genre, "genre", state.genre === genre))
-      .join("");
-    els.platformFilters.innerHTML = ["전체", ...platforms]
-      .map((platform) => filterButton(platform, "platform", state.platform === platform))
-      .join("");
+    renderFilterRow(els.genreFilters, "genre");
+    renderFilterRow(els.platformFilters, "platform");
+    renderFilterRow(els.worldFilters, "world");
+  }
 
-    const worldOptions = [
-      { label: "전체", value: "전체" },
-      ...(data.worlds || []).map((world) => ({ label: world.name, value: world.id })),
-      { label: "독립 캐릭터", value: "__independent__" }
-    ];
+  function pickerLabel(group) {
+    return group === "genre" ? "장르 선택" : group === "platform" ? "플랫폼 선택" : "세계관 선택";
+  }
 
-    els.worldFilters.innerHTML = worldOptions
-      .map((world) => filterButton(world.label, "world", state.world === world.value, world.value))
+  function renderFilterPicker() {
+    if (!activePickerGroup) return;
+    const normalized = pickerQuery.trim().toLocaleLowerCase("ko");
+    const options = filterOptions(activePickerGroup).filter((option) =>
+      !normalized || option.label.toLocaleLowerCase("ko").includes(normalized)
+    );
+
+    els.filterPickerOptions.innerHTML = options
+      .map((option) => filterButton(
+        option.label,
+        activePickerGroup,
+        state[activePickerGroup] === option.value,
+        option.value,
+        option.count,
+        true
+      ))
       .join("");
+    els.filterPickerEmpty.hidden = options.length !== 0;
+  }
+
+  function openFilterPicker(group) {
+    activePickerGroup = group;
+    pickerQuery = "";
+    els.filterPickerTitle.textContent = pickerLabel(group);
+    els.filterPickerSearch.value = "";
+    els.filterPickerSearch.placeholder = `${pickerLabel(group).replace(" 선택", "")} 검색`;
+    renderFilterPicker();
+    els.filterPicker.showModal();
+    syncModalOpenState();
+    requestAnimationFrame(() => els.filterPickerSearch.focus());
+  }
+
+  function closeFilterPicker() {
+    if (els.filterPicker.open) els.filterPicker.close();
+    activePickerGroup = null;
+    pickerQuery = "";
+    syncModalOpenState();
   }
 
   function filteredCharacters() {
@@ -441,7 +571,7 @@
   }
 
   function syncModalOpenState() {
-    document.body.classList.toggle("modal-open", Boolean(els.modal.open || els.worldModal.open));
+    document.body.classList.toggle("modal-open", Boolean(els.modal.open || els.worldModal.open || els.filterPicker.open));
   }
 
 
@@ -681,10 +811,17 @@
       return;
     }
 
+    const moreFilter = event.target.closest("[data-filter-more]");
+    if (moreFilter) {
+      openFilterPicker(moreFilter.dataset.filterMore);
+      return;
+    }
+
     const filter = event.target.closest("[data-filter-group]");
     if (filter) {
       state[filter.dataset.filterGroup] = filter.dataset.filterValue;
       renderAll();
+      if (els.filterPicker.open) closeFilterPicker();
       return;
     }
 
@@ -735,6 +872,17 @@
       updateCharacterArchiveLimit();
     });
   });
+
+  els.filterPickerSearch.addEventListener("input", (event) => {
+    pickerQuery = event.target.value;
+    renderFilterPicker();
+  });
+
+  els.filterPickerClose.addEventListener("click", closeFilterPicker);
+  els.filterPicker.addEventListener("click", (event) => {
+    if (event.target === els.filterPicker) closeFilterPicker();
+  });
+  els.filterPicker.addEventListener("close", syncModalOpenState);
 
   els.modalClose.addEventListener("click", closeCharacterModal);
   els.modal.addEventListener("click", (event) => {

@@ -135,6 +135,26 @@
     <a href="#top">맨 위로 ↑</a>
   </footer>
 
+  <dialog class="filter-picker" id="filterPicker" aria-labelledby="filterPickerTitle">
+    <div class="filter-picker-shell">
+      <header class="filter-picker-header">
+        <div>
+          <p class="eyebrow">FILTER</p>
+          <h2 id="filterPickerTitle">필터 선택</h2>
+        </div>
+        <button class="filter-picker-close" id="filterPickerClose" type="button" aria-label="필터 선택 닫기">×</button>
+      </header>
+
+      <label class="filter-picker-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="filterPickerSearch" type="search" placeholder="목록에서 검색" autocomplete="off" />
+      </label>
+
+      <div class="filter-picker-options" id="filterPickerOptions"></div>
+      <p class="filter-picker-empty" id="filterPickerEmpty" hidden>일치하는 항목이 없습니다.</p>
+    </div>
+  </dialog>
+
   <dialog class="character-modal" id="characterModal" aria-labelledby="modalTitle">
     <div class="modal-shell">
       <button class="modal-close" id="modalClose" type="button" aria-label="캐릭터 상세 닫기">×</button>

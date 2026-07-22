@@ -262,10 +262,41 @@ main { padding-block: 6rem; }
 .filter-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1rem; }
 .filter-group { display: grid; gap: .7rem; }
 .filter-label { color: var(--muted); font-size: .75rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
-.chip-list { display: flex; gap: .45rem; flex-wrap: wrap; }
-.filter-chip { padding: .45rem .72rem; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; cursor: pointer; font-size: .82rem; }
-.filter-chip:hover { color: var(--text); border-color: var(--line-strong); }
+.chip-list { display: flex; gap: .45rem; flex-wrap: wrap; align-items: center; }
+.filter-chip,
+.filter-more { min-height: 38px; padding: .45rem .72rem; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; cursor: pointer; font-size: .82rem; }
+.filter-chip { display: inline-flex; align-items: center; justify-content: space-between; gap: .8rem; }
+.filter-chip:hover,
+.filter-more:hover { color: var(--text); border-color: var(--line-strong); }
 .filter-chip.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 850; }
+.filter-more { border-style: dashed; color: var(--text); }
+.filter-more b { color: var(--accent); font-size: .75rem; }
+
+.filter-picker {
+  width: min(680px, calc(100% - 28px));
+  max-height: min(78vh, 720px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 24px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.filter-picker::backdrop { background: rgba(5,5,8,.72); backdrop-filter: blur(10px); }
+.filter-picker-shell { display: grid; grid-template-rows: auto auto minmax(0, 1fr); max-height: min(78vh, 720px); padding: 1.25rem; }
+.filter-picker-header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.filter-picker-header .eyebrow { margin: 0 0 .15rem; }
+.filter-picker-header h2 { margin: 0; font-size: 1.65rem; letter-spacing: -.04em; }
+.filter-picker-close { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--text); cursor: pointer; font-size: 1.5rem; line-height: 1; }
+.filter-picker-close:hover { border-color: var(--accent); color: var(--accent); }
+.filter-picker-search { display: flex; align-items: center; gap: .7rem; padding: .75rem .9rem; margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 13px; background: var(--bg); }
+.filter-picker-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.filter-picker-search input { width: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: var(--text); }
+.filter-picker-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: start; gap: .55rem; overflow-y: auto; padding-right: .25rem; scrollbar-width: thin; }
+.filter-chip--picker { width: 100%; border-radius: 13px; text-align: left; }
+.filter-chip--picker small { color: currentColor; opacity: .62; font-size: .72rem; }
+.filter-picker-empty { margin: 1rem 0 0; color: var(--muted); text-align: center; }
 .character-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .empty-state { padding: 5rem 1rem; text-align: center; background: var(--surface); border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); }
 .empty-state > span { font-size: 2.2rem; color: var(--accent); }
@@ -528,6 +559,9 @@ footer a:hover { color: var(--accent); }
   .featured-card .card-image-wrap { aspect-ratio: 4 / 3.6; }
   .filter-row { grid-template-columns: 1fr; }
   .filter-group--world { grid-column: auto; }
+  .filter-picker { width: 100%; max-width: none; max-height: 82vh; margin: auto 0 0; border-radius: 24px 24px 0 0; }
+  .filter-picker-shell { max-height: 82vh; padding: 1.1rem; }
+  .filter-picker-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .character-grid { grid-template-columns: repeat(2, 1fr); }
   .world-grid { grid-template-columns: 1fr; }
   .modal-shell, .world-modal-shell { grid-template-columns: 1fr; }
@@ -559,6 +593,7 @@ footer a:hover { color: var(--accent); }
 
 
 @media (max-width: 480px) {
+  .filter-picker-options { grid-template-columns: 1fr; }
   .creator-card { grid-template-columns: 1fr; padding: 1.5rem 1rem 1.8rem; }
   .creator-avatar { width: 74px; }
   .creator-card h1 { font-size: 2.5rem; }
