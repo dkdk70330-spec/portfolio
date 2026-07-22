@@ -5,24 +5,24 @@ window.PORTFOLIO_DATA = {
   },
   "platforms": [
     {
-      "id": "lune",
-      "name": "Lune",
-      "icon": "platforms/lune.svg"
+      "id": "bloom",
+      "name": "블룸",
+      "icon": "platforms/bloom.svg"
     },
     {
-      "id": "moirai",
-      "name": "Moirai",
-      "icon": "platforms/moirai.svg"
+      "id": "caveduck",
+      "name": "케이브덕",
+      "icon": "platforms/caveduck.svg"
     },
     {
-      "id": "charroom",
-      "name": "CharRoom",
-      "icon": "platforms/charroom.svg"
+      "id": "rofan",
+      "name": "로판",
+      "icon": "platforms/rofan.svg"
     },
     {
-      "id": "orbit",
-      "name": "Orbit",
-      "icon": "platforms/orbit.svg"
+      "id": "tingle",
+      "name": "팅글",
+      "icon": "platforms/tingle.svg"
     }
   ],
   "characters": [
@@ -51,12 +51,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "lune",
-          "url": "https://example.com/lune/lyra"
+          "id": "bloom",
+          "url": "https://example.com/bloom/lyra"
         },
         {
-          "id": "moirai",
-          "url": "https://example.com/moirai/lyra"
+          "id": "caveduck",
+          "url": "https://example.com/caveduck/lyra"
         }
       ],
       "contents": [
@@ -118,12 +118,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "moirai",
-          "url": "https://example.com/moirai/ian"
+          "id": "caveduck",
+          "url": "https://example.com/caveduck/ian"
         },
         {
-          "id": "charroom",
-          "url": "https://example.com/charroom/ian"
+          "id": "rofan",
+          "url": "https://example.com/rofan/ian"
         }
       ],
       "contents": [
@@ -164,8 +164,8 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "lune",
-          "url": "https://example.com/lune/seoha"
+          "id": "bloom",
+          "url": "https://example.com/bloom/seoha"
         }
       ],
       "contents": [
@@ -206,12 +206,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "orbit",
-          "url": "https://example.com/orbit/noah"
+          "id": "tingle",
+          "url": "https://example.com/tingle/noah"
         },
         {
-          "id": "lune",
-          "url": "https://example.com/lune/noah"
+          "id": "bloom",
+          "url": "https://example.com/bloom/noah"
         }
       ],
       "contents": [
@@ -252,12 +252,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "charroom",
-          "url": "https://example.com/charroom/mireu"
+          "id": "rofan",
+          "url": "https://example.com/rofan/mireu"
         },
         {
-          "id": "orbit",
-          "url": "https://example.com/orbit/mireu"
+          "id": "tingle",
+          "url": "https://example.com/tingle/mireu"
         }
       ],
       "contents": [
@@ -298,8 +298,8 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "moirai",
-          "url": "https://example.com/moirai/cassian"
+          "id": "caveduck",
+          "url": "https://example.com/caveduck/cassian"
         }
       ],
       "contents": [
@@ -340,12 +340,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "orbit",
-          "url": "https://example.com/orbit/haejun"
+          "id": "tingle",
+          "url": "https://example.com/tingle/haejun"
         },
         {
-          "id": "charroom",
-          "url": "https://example.com/charroom/haejun"
+          "id": "rofan",
+          "url": "https://example.com/rofan/haejun"
         }
       ],
       "contents": [
@@ -386,8 +386,8 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "lune",
-          "url": "https://example.com/lune/evelyn"
+          "id": "bloom",
+          "url": "https://example.com/bloom/evelyn"
         }
       ],
       "contents": [
@@ -428,12 +428,12 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "charroom",
-          "url": "https://example.com/charroom/taeo"
+          "id": "rofan",
+          "url": "https://example.com/rofan/taeo"
         },
         {
-          "id": "moirai",
-          "url": "https://example.com/moirai/taeo"
+          "id": "caveduck",
+          "url": "https://example.com/caveduck/taeo"
         }
       ],
       "contents": [
@@ -474,8 +474,8 @@ window.PORTFOLIO_DATA = {
       ],
       "platforms": [
         {
-          "id": "orbit",
-          "url": "https://example.com/orbit/sable"
+          "id": "tingle",
+          "url": "https://example.com/tingle/sable"
         }
       ],
       "contents": [
